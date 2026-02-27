@@ -11,6 +11,7 @@
         <module name="core-imp" />
         <module name="pos-settings" />
         <module name="settings-gui" />
+        <module name="pos-settings-gui" />
       </profile>
     </annotationProcessing>
   </component>
