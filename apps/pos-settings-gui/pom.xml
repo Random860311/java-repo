@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Your entry point -->
-        <mainClass>com.qa.possettings.Main</mainClass>
+        <mainClass>com.qa.app.pos.settings.gui.Main</mainClass>
     </properties>
 
     <dependencies>
@@ -44,6 +44,11 @@
             <groupId>com.qa</groupId>
             <artifactId>settings-gui</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.qa</groupId>
+            <artifactId>pos-settings</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
