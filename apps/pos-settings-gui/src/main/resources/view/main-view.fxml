@@ -29,10 +29,11 @@
     </top>
 
     <left>
-        <!-- Replaced TreeView with expandable list custom control -->
+        <fx:include source="expandable-view.fxml"/>
+        <!-- Replaced TreeView with expandable list custom control
         <FileListController fx:id="filesExpandList"
                                 prefWidth="260.0"
-                                BorderPane.alignment="CENTER"/>
+                                BorderPane.alignment="CENTER"/>-->
     </left>
 
     <center>

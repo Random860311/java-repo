@@ -23,41 +23,28 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
 
     protected final ListChangeListener<ExpItemViewModel> itemListener = change -> rebuildAll();
 
-    public ExpandableListController() {
-        FXMLLoader loader = new FXMLLoader(
-                ExpandableListController.class.getResource("expandable-view.fxml")
-        );
-        loader.setRoot(this);
-        loader.setController(this);
-
-        try {
-            loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load files-expand-list-control.fxml", e);
-        }
+    public ExpandableListController(TViewModel viewModel) {
+        this.viewModel = viewModel;
+//        FXMLLoader loader = new FXMLLoader(
+//                ExpandableListController.class.getResource("expandable-view.fxml")
+//        );
+//        loader.setRoot(this);
+//        loader.setController(this);
+//
+//        try {
+//            loader.load();
+//        } catch (IOException e) {
+//            throw new RuntimeException("Failed to load files-expand-list-control.fxml", e);
+//        }
     }
 
-    public TViewModel getViewModel() {
-        return viewModel;
-    }
-
-    public void setViewModel(TViewModel vm) {
-        if (this.viewModel != null) {
-            this.viewModel.getExpItemsVm().removeListener(itemListener);
-        }
-
-        this.viewModel = vm;
-
-        if (vm == null) {
+    protected void rebuildAll() {
+        if (this.viewModel == null) {
             panesContainer.getChildren().clear();
             return;
         }
 
-        vm.getExpItemsVm().addListener(itemListener);
-        rebuildAll();
-    }
-
-    protected void rebuildAll() {
+        this.viewModel.getExpItemsVm().addListener(itemListener);
         panesContainer.getChildren().clear();
 
         if (viewModel == null) return;
@@ -110,6 +97,6 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
 
     @FXML
     protected void initialize() {
-        // nothing yet
+        rebuildAll();
     }
 }
