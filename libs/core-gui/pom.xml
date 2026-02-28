@@ -10,18 +10,19 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>core-imp</artifactId>
+    <artifactId>core-gui</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.qa</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>core-imp</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>${guice.version}</version>
         </dependency>
     </dependencies>
+
 </project>
