@@ -1,5 +1,6 @@
 package com.qa.lib.core.gui.viewmodel.explist;
 
+import com.qa.lib.core.gui.viewmodel.BaseViewModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,7 +8,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ExpItemViewModel {
+public class ExpItemViewModel extends BaseViewModel {
     protected final StringProperty itemName = new SimpleStringProperty(this, "itemName", "");
     protected final BooleanProperty expanded = new SimpleBooleanProperty(this, "expanded", false);
     protected final ObservableList<SectionViewModel> sections = FXCollections.observableArrayList();

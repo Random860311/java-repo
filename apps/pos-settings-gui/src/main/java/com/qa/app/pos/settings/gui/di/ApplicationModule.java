@@ -1,6 +1,7 @@
 package com.qa.app.pos.settings.gui.di;
 
 import com.google.inject.AbstractModule;
+import com.qa.app.pos.settings.gui.controller.MainViewController;
 import com.qa.app.pos.settings.gui.viewmodel.MainViewModel;
 import com.qa.lib.core.di.CoreModule;
 import com.qa.lib.core.gui.di.CoreGuiModule;
@@ -18,5 +19,6 @@ public class ApplicationModule extends AbstractModule {
         install(new PosSettingsModule());
 
         bind(MainViewModel.class);
+        bind(MainViewController.class);
     }
 }

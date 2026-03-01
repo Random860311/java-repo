@@ -13,11 +13,19 @@ public class MainViewModel {
     public MainViewModel(FileListViewModel fileListViewModel, IPosConfigFileService posConfigFileService) {
         this.posConfigFileService = posConfigFileService;
         this.fileListViewModel = fileListViewModel;
+    }
 
+    public FileListViewModel getFileListViewModel() {
+        return fileListViewModel;
+    }
+
+    public void loadData() {
         try {
             this.fileListViewModel.setFiles(this.posConfigFileService.getConfigFileNames());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }

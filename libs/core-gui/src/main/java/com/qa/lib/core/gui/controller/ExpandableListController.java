@@ -1,11 +1,11 @@
 package com.qa.lib.core.gui.controller;
 
+import com.qa.lib.core.gui.utils.TitleListCell;
 import com.qa.lib.core.gui.viewmodel.explist.ExpItemViewModel;
 import com.qa.lib.core.gui.viewmodel.explist.ExpListViewModel;
 import com.qa.lib.core.gui.viewmodel.explist.SectionViewModel;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -13,38 +13,34 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.io.IOException;
-
-public abstract class ExpandableListController<TViewModel extends ExpListViewModel<TItem>, TItem extends ExpItemViewModel> {
-    private TViewModel viewModel;
+public abstract class ExpandableListController<TViewModel extends ExpListViewModel<TItem>, TItem extends ExpItemViewModel> extends BaseController {
+    protected TViewModel viewModel;
 
     @FXML
     protected VBox panesContainer;
 
-    protected final ListChangeListener<ExpItemViewModel> itemListener = change -> rebuildAll();
+    protected final ListChangeListener<TItem> itemListener = change -> rebuildAll();
 
-    public ExpandableListController(TViewModel viewModel) {
+
+    public TViewModel getViewModel() {
+        return viewModel;
+    }
+
+    public void setViewModel(TViewModel viewModel) {
+        if (this.viewModel != null) {
+            this.viewModel.getExpItemsVm().removeListener(itemListener);
+        }
+
         this.viewModel = viewModel;
-//        FXMLLoader loader = new FXMLLoader(
-//                ExpandableListController.class.getResource("expandable-view.fxml")
-//        );
-//        loader.setRoot(this);
-//        loader.setController(this);
-//
-//        try {
-//            loader.load();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Failed to load files-expand-list-control.fxml", e);
-//        }
+
+        if (this.viewModel != null) {
+            this.viewModel.getExpItemsVm().addListener(itemListener);
+        }
+
+        rebuildAll();
     }
 
     protected void rebuildAll() {
-        if (this.viewModel == null) {
-            panesContainer.getChildren().clear();
-            return;
-        }
-
-        this.viewModel.getExpItemsVm().addListener(itemListener);
         panesContainer.getChildren().clear();
 
         if (viewModel == null) return;
@@ -57,20 +53,33 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
     private @NonNull TitledPane buildFilePane(@NonNull TItem itemVm) {
         // Content: sections list
         ListView<SectionViewModel> sectionsList = new ListView<>();
+
         sectionsList.setItems(itemVm.getSections());
 
         // How each section row displays
-        sectionsList.setCellFactory(lv -> new ListCell<SectionViewModel>() {
-            @Override
-            protected void updateItem(SectionViewModel item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getTitle());
-            }
-        });
+        sectionsList.setCellFactory(lv -> new TitleListCell<>());
+
+        // make height computable
+        sectionsList.setFixedCellSize(24); // value that matches your font/padding
+
+        // wrap-content height
+        double maxVisibleRows = 8;
+        sectionsList.prefHeightProperty().bind(
+                javafx.beans.binding.Bindings.min(
+                        javafx.beans.binding.Bindings.size(itemVm.getSections())
+                                .multiply(sectionsList.getFixedCellSize())
+                                .add(2), // small padding/border fudge factor
+                        maxVisibleRows * sectionsList.getFixedCellSize() + 2
+                )
+        );
+
+        // Optional: avoid trying to stretch
+        sectionsList.setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
+        sectionsList.setMaxHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
+
 
         // Selection -> VM
         sectionsList.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
-            if (viewModel == null) return;
             if (newV != null) {
                 viewModel.setSelectedItem(itemVm);
                 viewModel.setSelectedSection(newV);
@@ -82,14 +91,13 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
         pane.setContent(sectionsList);
 
         // Expanded sync (two-way)
-        pane.setExpanded(itemVm.isExpanded());
-        pane.expandedProperty().addListener((obs, was, is) -> itemVm.setExpanded(is));
-        itemVm.expandedProperty().addListener((obs, was, is) -> pane.setExpanded(is));
+        pane.expandedProperty().bindBidirectional(itemVm.expandedProperty());
+
 
         // Clicking header (even without selecting a section) sets selected file
         pane.setGraphic(new Label()); // keeps header layout simple
         pane.setOnMouseClicked(e -> {
-            if (viewModel != null) viewModel.setSelectedItem(itemVm);
+            viewModel.setSelectedItem(itemVm);
         });
 
         return pane;
@@ -97,6 +105,20 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
 
     @FXML
     protected void initialize() {
+        super.initialize();
+        // auto-detach when removed from scene
+        panesContainer.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene == null) {
+                dispose();
+            }
+        });
+
         rebuildAll();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        viewModel.getExpItemsVm().removeListener(itemListener);
     }
 }

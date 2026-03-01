@@ -2,10 +2,11 @@ package com.qa.lib.settings.dto;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ConfigFileDto {
     private final String fileName;
-    private Map<String, Object> configs = new HashMap<>();
+    private final Map<String, Map<String, Object>> configs = new HashMap<>();
 
     public ConfigFileDto(String fileName) {
         this.fileName = fileName;
@@ -15,14 +16,11 @@ public class ConfigFileDto {
         return fileName;
     }
 
-    public Map<String, Object> getConfigs() {
+    public Map<String, Map<String, Object>> getConfigs() {
         return configs;
     }
 
-    public void setConfigs(Map<String, Object> configs) {
-        if (configs != null)
-            this.configs = configs;
-        else
-            this.configs = new HashMap<>();
+    public Set<String> getSections() {
+        return configs.keySet();
     }
 }

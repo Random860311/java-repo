@@ -16,11 +16,22 @@ public class PosConfigFileServiceImp implements IPosConfigFileService {
     @Override
     public String[] getConfigFileNames() {
         return new String[] {
-                "/etc/pos/pos-env",
-                "/etc/pos/pos.properties",
-                "/etc/pos/dbsynchronizer.properties",
-                "/etc/yum.repos.d/carwashcontrols.repo",
-                "/etc/posupdater/posupdater-env"
+                "C:\\Users\\rando\\Desktop\\test\\test.config",
+                "C:\\Users\\rando\\Desktop\\test\\test2.config",
+                "C:\\Users\\rando\\Desktop\\test\\test3.config",
+                "C:\\Users\\rando\\Desktop\\test\\test4.config",
+                "C:\\Users\\rando\\Desktop\\test\\test5.config",
+                "C:\\Users\\rando\\Desktop\\test\\test6.config",
+                "C:\\Users\\rando\\Desktop\\test\\test7.config",
+                "C:\\Users\\rando\\Desktop\\test\\test8.config",
+                "C:\\Users\\rando\\Desktop\\test\\test9.config",
+                "C:\\Users\\rando\\Desktop\\test\\test10.config",
+                "C:\\Users\\rando\\Desktop\\test\\test11.config",
+//                "/etc/pos/pos-env",
+//                "/etc/pos/pos.properties",
+//                "/etc/pos/dbsynchronizer.properties",
+//                "/etc/yum.repos.d/carwashcontrols.repo",
+//                "/etc/posupdater/posupdater-env"
         };
     }
 
