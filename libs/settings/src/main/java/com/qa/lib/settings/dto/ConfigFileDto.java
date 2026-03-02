@@ -23,4 +23,8 @@ public class ConfigFileDto {
     public Set<String> getSections() {
         return configs.keySet();
     }
+
+    public Map<String, Object> getSectionData(String section) {
+        return configs.get(section);
+    }
 }

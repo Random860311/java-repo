@@ -1,6 +1,6 @@
 package com.qa.lib.core.gui.viewmodel.explist;
 
-import com.qa.lib.core.gui.viewmodel.BaseViewModel;
+import com.qa.lib.core.gui.viewmodel.base.BaseViewModel;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;

@@ -22,8 +22,8 @@ public final class FileItemViewModel extends ExpItemViewModel {
         this.configFileDto = configFileDto;
         sections.clear();
 
-        for(String section : configFileDto.getConfigs().keySet()) {
-            sections.add(new SectionViewModel(section));
+        for(String section : configFileDto.getSections()) {
+            sections.add(new SectionViewModel(section, this.configFileDto.getSectionData(section)));
         }
     }
 

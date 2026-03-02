@@ -7,7 +7,6 @@ import com.qa.lib.core.gui.viewmodel.explist.SectionViewModel;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
@@ -77,14 +76,16 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
         sectionsList.setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
         sectionsList.setMaxHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
 
-
         // Selection -> VM
-        sectionsList.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
-            if (newV != null) {
-                viewModel.setSelectedItem(itemVm);
-                viewModel.setSelectedSection(newV);
-            }
-        });
+        sectionsList.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((obs, oldV, sectionVm) -> {
+                    if (sectionVm != null) {
+                        viewModel.setSelectedItem(itemVm);
+                        viewModel.setSelectedSection(sectionVm);
+                        System.out.println(itemVm.getItemName() + " " + sectionVm.getTitle() + " " + sectionVm.getData());
+                    }
+                });
 
         TitledPane pane = new TitledPane();
         pane.textProperty().bind(itemVm.itemNameProperty());
