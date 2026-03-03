@@ -4,9 +4,10 @@
 
 <VBox xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.qa.lib.settings.gui.controller.FileListController"
+      fx:controller="com.qa.lib.settings.gui.controller.file.FileListController"
       minWidth="200"
       maxHeight="Infinity"
+      maxWidth="Infinity"
       spacing="8">
 
     <ScrollPane fitToWidth="true"

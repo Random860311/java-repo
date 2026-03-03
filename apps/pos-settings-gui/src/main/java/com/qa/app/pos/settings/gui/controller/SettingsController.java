@@ -1,29 +1,28 @@
 package com.qa.app.pos.settings.gui.controller;
 
 import com.google.inject.Inject;
-import com.qa.app.pos.settings.gui.viewmodel.MainViewModel;
 import com.qa.app.pos.settings.gui.viewmodel.SettingsViewModel;
-import com.qa.lib.core.gui.controller.BaseController;
-import com.qa.lib.settings.gui.controller.FileListController;
+import com.qa.lib.core.gui.controller.base.ScreenController;
+import com.qa.lib.settings.gui.controller.file.FileListController;
+import com.qa.lib.settings.gui.controller.form.FormController;
 import javafx.fxml.FXML;
 
-public class SettingsController extends BaseController {
+public class SettingsController extends ScreenController<SettingsViewModel> {
     @FXML
     private FileListController leftFileListController;
-
-    private final SettingsViewModel viewModel;
+    @FXML
+    private FormController settingsFormController;
 
     @Inject
-    public SettingsController(SettingsViewModel viewModel) {
-        this.viewModel = viewModel;
+    public SettingsController(SettingsViewModel viewModel){
+        super(viewModel);
     }
 
     @Override
     protected void initialize() {
-        super.initialize();
-
         leftFileListController.setViewModel(viewModel.getFileListViewModel());
+        settingsFormController.setViewModel(viewModel.getSettingsFormViewModel());
 
-        viewModel.loadData();
+        super.initialize();
     }
 }

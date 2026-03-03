@@ -1,12 +1,13 @@
 package com.qa.lib.core.gui.viewmodel.explist;
 
 import com.qa.lib.core.gui.viewmodel.base.BaseViewModel;
+import com.qa.lib.core.gui.viewmodel.base.ComponentViewModel;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ExpListViewModel<TItem extends ExpItemViewModel> extends BaseViewModel {
+public class ExpListViewModel<TItem extends ExpItemViewModel> extends ComponentViewModel {
     protected final ObservableList<TItem> expItemsVm = FXCollections.observableArrayList();
 
     protected final ObjectProperty<TItem> selectedItem = new SimpleObjectProperty<>(this, "selectedFile");

@@ -3,11 +3,9 @@ package com.qa.app.pos.settings.gui.viewmodel;
 import com.google.inject.Inject;
 import com.qa.app.pos.settings.gui.service.navigation.EViewId;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
-import com.qa.lib.core.gui.viewmodel.base.NavigationViewModel;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
 
-public class HomeViewModel extends NavigationViewModel {
+public class HomeViewModel extends ScreenViewModel {
     private final Runnable showSettingsCommand = this::showSettings;
 
     @Inject

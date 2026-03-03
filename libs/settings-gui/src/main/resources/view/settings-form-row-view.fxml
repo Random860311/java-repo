@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.qa.lib.settings.gui.controller.form.FormRowController"
+      spacing="10"
+      style="-fx-padding: 6 0 6 0;">
+
+    <TextField fx:id="txtName"  HBox.hgrow="ALWAYS" promptText="Name"/>
+    <TextField fx:id="txtValue" HBox.hgrow="ALWAYS" promptText="Value"/>
+</HBox>

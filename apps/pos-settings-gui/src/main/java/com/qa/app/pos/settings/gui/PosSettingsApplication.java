@@ -26,7 +26,7 @@ public class PosSettingsApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/view/main-view.fxml")
+            getClass().getResource("/view/pos-main-view.fxml")
         );
 
         loader.setControllerFactory(injector::getInstance);

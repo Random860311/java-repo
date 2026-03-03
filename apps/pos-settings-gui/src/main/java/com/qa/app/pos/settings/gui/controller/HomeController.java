@@ -2,27 +2,24 @@ package com.qa.app.pos.settings.gui.controller;
 
 import com.google.inject.Inject;
 import com.qa.app.pos.settings.gui.viewmodel.HomeViewModel;
-import com.qa.lib.core.gui.controller.BaseController;
+import com.qa.lib.core.gui.controller.base.ScreenController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class HomeController extends BaseController {
+public class HomeController extends ScreenController<HomeViewModel> {
     @FXML
     private Button btnSettings;
 
-    private final HomeViewModel homeViewModel;
-
     @Inject
     public HomeController(HomeViewModel homeViewModel) {
-        this.homeViewModel = homeViewModel;
+        super(homeViewModel);
     }
 
     @Override
     protected void initialize() {
         super.initialize();
 
-        btnSettings.setOnAction(event -> homeViewModel.getShowSettingsCommand().run());
+        btnSettings.setOnAction(event -> viewModel.getShowSettingsCommand().run());
 
-        homeViewModel.onInitialize();
     }
 }

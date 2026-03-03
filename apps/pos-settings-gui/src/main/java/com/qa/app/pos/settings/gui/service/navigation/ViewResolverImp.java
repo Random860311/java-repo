@@ -11,7 +11,7 @@ public final class ViewResolverImp implements IViewResolver {
 
     static {
         Map<Integer, String> temp = new HashMap<>();
-        temp.put(EViewId.MAIN.ordinal(), "/view/main-view.fxml");
+        temp.put(EViewId.MAIN.ordinal(), "/view/pos-main-view.fxml");
         temp.put(EViewId.HOME.ordinal(), "/view/pos-home-view.fxml");
         temp.put(EViewId.POS_SETTINGS.ordinal(), "/view/pos-settings-view.fxml");
 

@@ -1,4 +1,4 @@
-package com.qa.lib.settings.gui.viewmodel;
+package com.qa.lib.settings.gui.viewmodel.file;
 
 import com.qa.lib.core.gui.viewmodel.explist.ExpItemViewModel;
 import com.qa.lib.core.gui.viewmodel.explist.SectionViewModel;

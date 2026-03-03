@@ -1,4 +1,4 @@
-package com.qa.lib.settings.gui.viewmodel;
+package com.qa.lib.settings.gui.viewmodel.file;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.gui.viewmodel.explist.ExpListViewModel;
@@ -6,13 +6,9 @@ import com.qa.lib.settings.dto.ConfigFileDto;
 import com.qa.lib.settings.service.config.IConfigFileService;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class FileListViewModel extends ExpListViewModel<FileItemViewModel> {
-    protected final IConfigFileService configFileService;
+public final class FileListViewModel extends ExpListViewModel<FileItemViewModel> {
+    private final IConfigFileService configFileService;
 
     @Inject
     public FileListViewModel(IConfigFileService configFileService) {

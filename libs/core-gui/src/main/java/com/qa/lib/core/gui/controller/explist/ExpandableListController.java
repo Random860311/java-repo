@@ -1,5 +1,6 @@
-package com.qa.lib.core.gui.controller;
+package com.qa.lib.core.gui.controller.explist;
 
+import com.qa.lib.core.gui.controller.base.ComponentController;
 import com.qa.lib.core.gui.utils.TitleListCell;
 import com.qa.lib.core.gui.viewmodel.explist.ExpItemViewModel;
 import com.qa.lib.core.gui.viewmodel.explist.ExpListViewModel;
@@ -12,20 +13,15 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-public abstract class ExpandableListController<TViewModel extends ExpListViewModel<TItem>, TItem extends ExpItemViewModel> extends BaseController {
-    protected TViewModel viewModel;
+public abstract class ExpandableListController<TViewModel extends ExpListViewModel<TItem>, TItem extends ExpItemViewModel> extends ComponentController<TViewModel> {
 
     @FXML
     protected VBox panesContainer;
 
     protected final ListChangeListener<TItem> itemListener = change -> rebuildAll();
 
-
-    public TViewModel getViewModel() {
-        return viewModel;
-    }
-
     public void setViewModel(TViewModel viewModel) {
+        super.setViewModel(viewModel);
         if (this.viewModel != null) {
             this.viewModel.getExpItemsVm().removeListener(itemListener);
         }
@@ -97,9 +93,7 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
 
         // Clicking header (even without selecting a section) sets selected file
         pane.setGraphic(new Label()); // keeps header layout simple
-        pane.setOnMouseClicked(e -> {
-            viewModel.setSelectedItem(itemVm);
-        });
+        pane.setOnMouseClicked(e -> viewModel.setSelectedItem(itemVm));
 
         return pane;
     }
