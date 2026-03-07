@@ -5,6 +5,11 @@ import com.qa.lib.settings.dto.ConfigFileDto;
 import com.qa.lib.settings.service.config.IConfigFileService;
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
 public class PosConfigFileServiceImp implements IPosConfigFileService {
     private final IConfigFileService configFileService;
 
@@ -15,7 +20,7 @@ public class PosConfigFileServiceImp implements IPosConfigFileService {
 
     @Override
     public String[] getConfigFileNames() {
-        return new String[] {
+        return new String[]{
                 "C:\\Users\\rando\\Desktop\\test\\test.config",
                 "C:\\Users\\rando\\Desktop\\test\\test2.config",
                 "C:\\Users\\rando\\Desktop\\test\\test3.config",
@@ -36,22 +41,12 @@ public class PosConfigFileServiceImp implements IPosConfigFileService {
     }
 
     @Override
-    public ConfigFileDto[] readAllConfigFiles() throws Exception {
-        String[] configFileNames = getConfigFileNames();
-        ConfigFileDto[] configFiles= new ConfigFileDto[configFileNames.length];
-        for (int i = 0; i < configFileNames.length; i++) {
-            configFiles[i] = configFileService.readConfigFile(configFileNames[i]);
-        }
-        return configFiles;
-    }
-
-    @Override
-    public void convertToQa() {
+    public CompletableFuture<Void> convertToQaAsync() {
         throw new NotImplementedException("Not Implemented");
     }
 
     @Override
-    public void convertToStage() {
+    public CompletableFuture<Void> convertToStageAsync() {
         throw new NotImplementedException("Not Implemented");
     }
 }

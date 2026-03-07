@@ -1,21 +1,27 @@
 package com.qa.lib.settings.service.config;
 
+import com.google.inject.Inject;
 import com.qa.lib.settings.dto.ConfigFileDto;
 import org.apache.commons.configuration2.INIConfiguration;
 import org.apache.commons.configuration2.SubnodeConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.io.FileHandler;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 public class ConfigFileServiceImp implements IConfigFileService {
-    @Override
-    public ConfigFileDto readConfigFile(String fileName) throws Exception {
+
+    private ConfigFileDto readConfigFile(String fileName) {
         INIConfiguration config = new INIConfiguration();
         FileHandler fileHandler = new FileHandler(config);
-        fileHandler.load(new File(fileName));
+
+        try {
+            fileHandler.load(new File(fileName));
+        } catch (ConfigurationException e) {
+            throw new RuntimeException(e);
+        }
 
         ConfigFileDto configFileDto = new ConfigFileDto(fileName);
         for (String sectionName : config.getSections()) {
@@ -30,5 +36,21 @@ public class ConfigFileServiceImp implements IConfigFileService {
             configFileDto.getConfigs().put(sectionName, items);
         }
         return configFileDto;
+    }
+
+    @Override
+    public CompletableFuture<ConfigFileDto> readConfigFileAsync(String fileName) {
+        return CompletableFuture.supplyAsync(() -> readConfigFile(fileName));
+    }
+
+    @Override
+    public CompletableFuture<List<ConfigFileDto>> readConfigFileAsync(String[] files) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<ConfigFileDto> configFileDtos = new ArrayList<>();
+            for (String fileName : files) {
+                configFileDtos.add(readConfigFile(fileName));
+            }
+            return configFileDtos;
+        });
     }
 }

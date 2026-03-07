@@ -2,10 +2,12 @@ package com.qa.lib.pos.settings.service.config;
 
 import com.qa.lib.settings.dto.ConfigFileDto;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 public interface IPosConfigFileService {
     String[] getConfigFileNames();
-    ConfigFileDto[] readAllConfigFiles() throws Exception;
 
-    void convertToQa();
-    void convertToStage();
+    CompletableFuture<Void> convertToQaAsync();
+    CompletableFuture<Void> convertToStageAsync();
 }
