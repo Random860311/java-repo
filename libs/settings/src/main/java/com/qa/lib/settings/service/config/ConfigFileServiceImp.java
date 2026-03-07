@@ -1,6 +1,7 @@
 package com.qa.lib.settings.service.config;
 
 import com.google.inject.Inject;
+import com.qa.lib.core.qualifiers.BackgroundThread;
 import com.qa.lib.settings.dto.ConfigFileDto;
 import org.apache.commons.configuration2.INIConfiguration;
 import org.apache.commons.configuration2.SubnodeConfiguration;
@@ -10,8 +11,15 @@ import org.apache.commons.configuration2.io.FileHandler;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 public class ConfigFileServiceImp implements IConfigFileService {
+    private final Executor backgroundExecutor;
+
+    @Inject
+    public ConfigFileServiceImp(@BackgroundThread Executor backgroundExecutor) {
+        this.backgroundExecutor = backgroundExecutor;
+    }
 
     private ConfigFileDto readConfigFile(String fileName) {
         INIConfiguration config = new INIConfiguration();
@@ -51,6 +59,6 @@ public class ConfigFileServiceImp implements IConfigFileService {
                 configFileDtos.add(readConfigFile(fileName));
             }
             return configFileDtos;
-        });
+        }, backgroundExecutor);
     }
 }

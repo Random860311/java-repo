@@ -17,6 +17,7 @@
         <module>apps/pos-settings-gui</module>
         <module>libs/pos-settings</module>
         <module>libs/core-gui</module>
+        <module>libs/core-ssh</module>
     </modules>
 
     <properties>
@@ -30,6 +31,7 @@
         <!-- Centralized dependency versions -->
         <guice.version>5.1.0</guice.version>
         <configuration.version>2.9.0</configuration.version>
+        <ssh.version>0.1.55</ssh.version>
 
         <!-- Centralized plugin versions -->
         <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
@@ -48,6 +50,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-configuration2</artifactId>
                 <version>${configuration.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jsch</artifactId>
+                <version>${ssh.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

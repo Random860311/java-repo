@@ -3,7 +3,7 @@ package com.qa.lib.core.di;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.qa.lib.core.qualifiers.Background;
+import com.qa.lib.core.qualifiers.BackgroundThread;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.concurrent.Executor;
@@ -18,7 +18,7 @@ public class AsyncModule extends AbstractModule {
 
     @Provides
     @Singleton
-    @Background
+    @BackgroundThread
     ExecutorService provideBackgroundExecutorService() {
         ThreadFactory tf = new ThreadFactory() {
             private final AtomicInteger n = new AtomicInteger(1);
@@ -37,8 +37,8 @@ public class AsyncModule extends AbstractModule {
     // Bind as Executor too, so consumers can inject @Background Executor (not only ExecutorService)
     @Provides
     @Singleton
-    @Background
-    Executor provideBackgroundExecutor(@Background ExecutorService es) {
+    @BackgroundThread
+    Executor provideBackgroundExecutor(@BackgroundThread ExecutorService es) {
         return es;
     }
 }

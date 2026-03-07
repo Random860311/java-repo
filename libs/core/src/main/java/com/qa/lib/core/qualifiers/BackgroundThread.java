@@ -11,5 +11,5 @@ import static java.lang.annotation.ElementType.*;
 @BindingAnnotation
 @Target({ FIELD, PARAMETER, METHOD })
 @Retention(RUNTIME)
-public @interface Background {
+public @interface BackgroundThread {
 }
