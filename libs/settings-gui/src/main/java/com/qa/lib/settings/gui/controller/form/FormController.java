@@ -3,6 +3,7 @@ package com.qa.lib.settings.gui.controller.form;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.qa.lib.core.gui.controller.base.ComponentController;
+import com.qa.lib.core.service.i18n.II18nService;
 import com.qa.lib.settings.gui.viewmodel.form.FormRowViewModel;
 import com.qa.lib.settings.gui.viewmodel.form.FormViewModel;
 import javafx.collections.ListChangeListener;
@@ -18,12 +19,14 @@ public final class FormController extends ComponentController<FormViewModel> {
     @FXML
     private VBox rowsBox;
     private final Injector injector;
+    private final II18nService i18nService;
 
     private final ListChangeListener<FormRowViewModel> rowsListener = this::onRowsChangeListener;
 
     @Inject
-    public FormController(Injector injector) {
+    public FormController(Injector injector, II18nService i18nService) {
         this.injector = injector;
+        this.i18nService = i18nService;
     }
 
     private void onRowsChangeListener(ListChangeListener.Change<? extends FormRowViewModel> change) {
@@ -60,7 +63,10 @@ public final class FormController extends ComponentController<FormViewModel> {
 
     private void addRowNode(FormRowViewModel vm) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/settings-form-row-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/settings-form-row-view.fxml"),
+                    i18nService.getBundle()
+            );
 
             loader.setControllerFactory(injector::getInstance);
 

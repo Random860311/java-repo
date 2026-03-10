@@ -3,7 +3,8 @@ package com.qa.app.pos.settings.gui;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.qa.app.pos.settings.gui.di.ApplicationModule;
-import com.qa.lib.ssh.service.ISSHService;
+import com.qa.lib.core.service.i18n.II18nService;
+import com.qa.lib.ssh.service.ssh.ISshService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,23 +19,28 @@ public class PosSettingsApplication extends Application {
         return injector;
     }
 
-    private ISSHService sshService;
+    private ISshService sshService;
+    private II18nService i18nService;
 
     @Override
     public void init() throws Exception {
         super.init();
         injector = Guice.createInjector(new ApplicationModule());
 
-        sshService = injector.getInstance(ISSHService.class);
+        sshService = injector.getInstance(ISshService.class);
+        i18nService = injector.getInstance(II18nService.class);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/view/pos-main-screen.fxml")
+                getClass().getResource("/view/pos-main-screen.fxml"),
+                i18nService.getBundle()
         );
 
         loader.setControllerFactory(injector::getInstance);
+
+        System.out.println(i18nService.getString("ssh.gui.host"));
 
 //        try {
 //            SshConnectionConfigDto config = new SshConnectionConfigDto(
@@ -72,10 +78,9 @@ public class PosSettingsApplication extends Application {
     public void stop() throws Exception {
         super.stop();
         try {
-            sshService = injector.getInstance(ISSHService.class);
+            sshService = injector.getInstance(ISshService.class);
             sshService.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

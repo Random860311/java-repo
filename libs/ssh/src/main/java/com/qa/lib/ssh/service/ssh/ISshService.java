@@ -1,10 +1,10 @@
-package com.qa.lib.ssh.service;
+package com.qa.lib.ssh.service.ssh;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
-public interface ISSHService {
+public interface ISshService {
     boolean isConnectedTo(String targetHost, int targetPort);
     boolean isConnectedTo(SshConfig config);
 

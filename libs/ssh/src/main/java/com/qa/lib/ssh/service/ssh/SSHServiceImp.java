@@ -1,4 +1,4 @@
-package com.qa.lib.ssh.service;
+package com.qa.lib.ssh.service.ssh;
 
 import com.google.inject.Inject;
 import com.jcraft.jsch.ChannelExec;
@@ -17,7 +17,7 @@ import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-public final class SSHServiceImp implements ISSHService {
+public final class SSHServiceImp implements ISshService {
     private final Executor backgroundExecutor;
 
     private final Object sessionLock = new Object();

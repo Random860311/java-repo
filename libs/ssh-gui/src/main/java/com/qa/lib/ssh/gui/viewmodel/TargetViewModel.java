@@ -2,9 +2,7 @@ package com.qa.lib.ssh.gui.viewmodel;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.gui.viewmodel.base.ComponentViewModel;
-import com.qa.lib.ssh.service.SshConfig;
-
-import java.util.function.Consumer;
+import com.qa.lib.ssh.service.ssh.SshConfig;
 
 public class TargetViewModel extends ComponentViewModel {
     private final SessionViewModel sessionViewModel;

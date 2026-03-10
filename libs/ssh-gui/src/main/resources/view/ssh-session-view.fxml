@@ -12,7 +12,7 @@
       maxWidth="Infinity"
       spacing="10">
 
-    <TextField fx:id="txtHost" HBox.hgrow="ALWAYS" promptText="Host"/>
+    <TextField fx:id="txtHost" HBox.hgrow="ALWAYS" promptText="%ssh.gui.host"/>
     <TextField fx:id="txtPort" HBox.hgrow="ALWAYS" promptText="Port"/>
     <TextField fx:id="txtUsername" HBox.hgrow="ALWAYS" promptText="Username"/>
     <TextField fx:id="txtPassword" HBox.hgrow="ALWAYS" promptText="Password"/>

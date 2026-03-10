@@ -8,9 +8,11 @@ import com.qa.lib.ssh.gui.viewmodel.SessionViewModel;
 import com.qa.lib.ssh.gui.viewmodel.TargetJumpViewModel;
 import com.qa.lib.ssh.gui.viewmodel.TargetViewModel;
 
-public class SshGuiModule extends AbstractModule {
+public final class SshGuiModule extends AbstractModule {
     @Override
     protected void configure() {
+        install(new I18nModule());
+
         bind(SessionController.class);
         bind(TargetController.class);
         bind(TargetJumpController.class);

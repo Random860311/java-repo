@@ -4,9 +4,11 @@ import com.google.inject.AbstractModule;
 import com.qa.lib.settings.service.config.ConfigFileServiceImp;
 import com.qa.lib.settings.service.config.IConfigFileService;
 
-public class SettingsModule extends AbstractModule {
+public final class SettingsModule extends AbstractModule {
     @Override
     protected void configure() {
+        install(new I18nModule());
+
         bind(IConfigFileService.class)
                 .to(ConfigFileServiceImp.class)
                 .asEagerSingleton();

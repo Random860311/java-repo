@@ -1,4 +1,4 @@
-package com.qa.lib.ssh.service;
+package com.qa.lib.ssh.service.ssh;
 
 public class SshConfig {
     private String targetHost;

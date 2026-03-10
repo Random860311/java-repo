@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
 import com.qa.lib.ssh.gui.viewmodel.TargetJumpViewModel;
-import com.qa.lib.ssh.service.SshJumpConfig;
+import com.qa.lib.ssh.service.ssh.SshJumpConfig;
 
 public class SshViewModel extends ScreenViewModel {
     private final Runnable confirmCommand = this::onConfirm;

@@ -21,7 +21,7 @@ import com.qa.lib.settings.di.SettingsModule;
 import com.qa.lib.settings.gui.di.SettingsGuiModule;
 import com.qa.lib.ssh.gui.di.SshGuiModule;
 
-public class ApplicationModule extends AbstractModule {
+public final class ApplicationModule extends AbstractModule {
     @Override
     protected void configure() {
         installDependencies();
@@ -39,6 +39,7 @@ public class ApplicationModule extends AbstractModule {
         install(new PosSettingsModule());
         install(new SshModule());
         install(new SshGuiModule());
+        install(new I18nModule());
     }
 
     private void registerServices() {

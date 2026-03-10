@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AsyncModule extends AbstractModule {
+public final class AsyncModule extends AbstractModule {
     @Override
     protected void configure() {}
 

@@ -7,9 +7,11 @@ import com.qa.lib.settings.gui.viewmodel.file.FileListViewModel;
 import com.qa.lib.settings.gui.viewmodel.form.FormRowViewModel;
 import com.qa.lib.settings.gui.viewmodel.form.FormViewModel;
 
-public class SettingsGuiModule extends AbstractModule {
+public final class SettingsGuiModule extends AbstractModule {
     @Override
     protected void configure() {
+        install(new I18nModule());
+
         bind(FileListViewModel.class);
         bind(FormRowViewModel.class);
         bind(FormViewModel.class);

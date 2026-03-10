@@ -11,9 +11,11 @@ import com.qa.lib.core.gui.service.navigation.ViewFactoryImp;
 
 import java.util.concurrent.Executor;
 
-public class CoreGuiModule extends AbstractModule {
+public final class CoreGuiModule extends AbstractModule {
     @Override
     protected void configure() {
+        install(new I18nModule());
+
         bind(IViewFactory.class)
                 .to(ViewFactoryImp.class)
                 .asEagerSingleton();
@@ -23,5 +25,6 @@ public class CoreGuiModule extends AbstractModule {
                 .annotatedWith(UiThread.class)
                 .to(FxUiExecutor.class)
                 .in(Scopes.SINGLETON);
+
     }
 }
