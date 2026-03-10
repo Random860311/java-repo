@@ -17,7 +17,8 @@
         <module>apps/pos-settings-gui</module>
         <module>libs/pos-settings</module>
         <module>libs/core-gui</module>
-        <module>libs/core-ssh</module>
+        <module>libs/ssh</module>
+        <module>libs/ssh-gui</module>
     </modules>
 
     <properties>

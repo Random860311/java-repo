@@ -15,10 +15,11 @@ import com.qa.lib.core.di.CoreModule;
 import com.qa.lib.core.gui.di.CoreGuiModule;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.service.navigation.IViewResolver;
-import com.qa.lib.core.ssh.di.CoreSSHModule;
+import com.qa.lib.ssh.di.SshModule;
 import com.qa.lib.pos.settings.di.PosSettingsModule;
 import com.qa.lib.settings.di.SettingsModule;
 import com.qa.lib.settings.gui.di.SettingsGuiModule;
+import com.qa.lib.ssh.gui.di.SshGuiModule;
 
 public class ApplicationModule extends AbstractModule {
     @Override
@@ -33,10 +34,11 @@ public class ApplicationModule extends AbstractModule {
     private void installDependencies() {
         install(new CoreModule());
         install(new CoreGuiModule());
-        install(new CoreSSHModule());
         install(new SettingsModule());
         install(new SettingsGuiModule());
         install(new PosSettingsModule());
+        install(new SshModule());
+        install(new SshGuiModule());
     }
 
     private void registerServices() {

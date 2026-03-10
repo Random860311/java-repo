@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      fx:controller="com.qa.lib.ssh.gui.controller.TargetJumpController"
+      maxHeight="Infinity"
+      maxWidth="Infinity">
+
+    <HBox spacing="10"
+          maxWidth="Infinity"
+          style="-fx-padding: 6 0 6 0;">
+
+        <TitledPane text="Target session"
+                    collapsible="false"
+                    HBox.hgrow="ALWAYS">
+            <fx:include source="ssh-session-view.fxml" fx:id="targetSession"/>
+        </TitledPane>
+        <TitledPane text="Jump session"
+                    collapsible="false"
+                    HBox.hgrow="ALWAYS">
+            <fx:include source="ssh-session-view.fxml" fx:id="jumpSession"/>
+        </TitledPane>
+    </HBox>
+
+</VBox>
+<!--        style="-fx-background-color: #2b2b2b;"-->

@@ -11,9 +11,10 @@ public final class ViewResolverImp implements IViewResolver {
 
     static {
         Map<Integer, String> temp = new HashMap<>();
-        temp.put(EViewId.MAIN.ordinal(), "/view/pos-main-view.fxml");
-        temp.put(EViewId.HOME.ordinal(), "/view/pos-home-view.fxml");
-        temp.put(EViewId.POS_SETTINGS.ordinal(), "/view/pos-settings-view.fxml");
+        temp.put(EViewId.MAIN.ordinal(), "/view/pos-main-screen.fxml");
+        temp.put(EViewId.HOME.ordinal(), "/view/pos-home-screen.fxml");
+        temp.put(EViewId.POS_SETTINGS.ordinal(), "/view/pos-settings-screen.fxml");
+        temp.put(EViewId.POS_SSH.ordinal(), "/view/pos-ssh-screen.fxml");
 
         viewsMap = Collections.unmodifiableMap(temp);
     }

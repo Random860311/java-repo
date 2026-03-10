@@ -13,8 +13,6 @@
     <file url="file://$PROJECT_DIR$/libs/core-gui/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/core-imp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/core-imp/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/core-ssh/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/core-ssh/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/pos-settings/src/main/java" charset="UTF-8" />
@@ -23,6 +21,10 @@
     <file url="file://$PROJECT_DIR$/libs/settings-gui/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/settings/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/settings/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/ssh-gui/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/ssh-gui/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/ssh/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/ssh/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

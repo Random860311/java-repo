@@ -11,8 +11,9 @@
         <module name="pos-settings" />
         <module name="settings-gui" />
         <module name="core-gui" />
+        <module name="ssh" />
         <module name="pos-settings-gui" />
-        <module name="core-ssh" />
+        <module name="ssh-gui" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

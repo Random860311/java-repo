@@ -6,7 +6,8 @@ import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
 
 public class HomeViewModel extends ScreenViewModel {
-    private final Runnable showSettingsCommand = this::showSettings;
+    private final Runnable showSettingsCommand = this::onShowSettings;
+    private final Runnable showSshCommand = this::onShowSsh;
 
     @Inject
     public HomeViewModel(INavigationService navigationService) {
@@ -17,7 +18,13 @@ public class HomeViewModel extends ScreenViewModel {
         return showSettingsCommand;
     }
 
-    private void showSettings() {
+    public Runnable getShowSshCommand() {
+        return showSshCommand;
+    }
+
+    private void onShowSettings() {
         navigationService.navigateTo(EViewId.POS_SETTINGS.ordinal());
     }
+
+    private void onShowSsh() { navigationService.navigateTo(EViewId.POS_SSH.ordinal());}
 }

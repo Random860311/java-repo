@@ -10,9 +10,15 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>core-ssh</artifactId>
+    <artifactId>ssh</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.qa</groupId>
+            <artifactId>core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.qa</groupId>
             <artifactId>core-imp</artifactId>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      fx:controller="com.qa.lib.ssh.gui.controller.SessionController"
+      maxWidth="Infinity"
+      spacing="10">
+
+    <TextField fx:id="txtHost" HBox.hgrow="ALWAYS" promptText="Host"/>
+    <TextField fx:id="txtPort" HBox.hgrow="ALWAYS" promptText="Port"/>
+    <TextField fx:id="txtUsername" HBox.hgrow="ALWAYS" promptText="Username"/>
+    <TextField fx:id="txtPassword" HBox.hgrow="ALWAYS" promptText="Password"/>
+</VBox>

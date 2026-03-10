@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 public class HomeController extends ScreenController<HomeViewModel> {
     @FXML
     private Button btnSettings;
+    @FXML
+    private Button btnSsh;
 
     @Inject
     public HomeController(HomeViewModel homeViewModel) {
@@ -20,6 +22,6 @@ public class HomeController extends ScreenController<HomeViewModel> {
         super.initialize();
 
         btnSettings.setOnAction(event -> viewModel.getShowSettingsCommand().run());
-
+        btnSsh.setOnAction(event -> viewModel.getShowSshCommand().run());
     }
 }
