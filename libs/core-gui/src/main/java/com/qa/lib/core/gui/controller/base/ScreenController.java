@@ -3,7 +3,7 @@ package com.qa.lib.core.gui.controller.base;
 import com.qa.lib.core.gui.controller.IParameterReceiver;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
 
-public abstract class ScreenController<TViewModel extends ScreenViewModel> extends BaseController<TViewModel> implements IParameterReceiver {
+public abstract class ScreenController<TViewModel extends ScreenViewModel> extends MvvmController<TViewModel> implements IParameterReceiver {
     protected Object navigationParameter = null;
 
     public ScreenController(TViewModel viewModel) {
