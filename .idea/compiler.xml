@@ -8,11 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
         <module name="settings" />
-        <module name="pos-settings" />
+        <module name="pos" />
         <module name="settings-gui" />
         <module name="core-gui" />
         <module name="ssh" />
-        <module name="pos-settings-gui" />
+        <module name="pos-gui" />
         <module name="ssh-gui" />
       </profile>
     </annotationProcessing>

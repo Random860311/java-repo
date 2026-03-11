@@ -15,6 +15,6 @@
 
     <ProgressIndicator fx:id="progressIndicator"/>
 
-    <Label fx:id="lblMessage" text="Loading..."/>
+    <Label fx:id="lblMessage" text="%core.gui.dialog.progress.loading"/>
 
 </VBox>
