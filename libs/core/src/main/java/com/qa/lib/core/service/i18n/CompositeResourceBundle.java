@@ -27,11 +27,7 @@ public final class CompositeResourceBundle extends ResourceBundle {
             }
         }
 
-        throw new MissingResourceException(
-                "Key not found in composite bundle",
-                CompositeResourceBundle.class.getName(),
-                key
-        );
+        throw new MissingResourceException("Key not found in composite bundle", CompositeResourceBundle.class.getName(), key);
     }
 
     @Override

@@ -12,8 +12,6 @@
       maxWidth="Infinity"
       maxHeight="Infinity">
 
-    <fx:include
-            fx:id="targetSessionController"
-            source="ssh-session-view.fxml"/>
+    <fx:include fx:id="targetSessionController" source="ssh-session-view.fxml"/>
 
 </VBox>

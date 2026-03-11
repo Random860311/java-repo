@@ -16,12 +16,12 @@
           maxWidth="Infinity"
           style="-fx-padding: 6 0 6 0;">
 
-        <TitledPane text="Target session"
+        <TitledPane text="%ssh.gui.session.target"
                     collapsible="false"
                     HBox.hgrow="ALWAYS">
             <fx:include source="ssh-session-view.fxml" fx:id="targetSession"/>
         </TitledPane>
-        <TitledPane text="Jump session"
+        <TitledPane text="%ssh.gui.session.jump"
                     collapsible="false"
                     HBox.hgrow="ALWAYS">
             <fx:include source="ssh-session-view.fxml" fx:id="jumpSession"/>

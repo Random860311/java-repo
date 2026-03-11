@@ -15,7 +15,7 @@
     </center>
     <bottom>
         <HBox alignment="CENTER_RIGHT">
-            <Button fx:id="btnConfirm" text="Confirm" prefWidth="120" prefHeight="36"/>
+            <Button fx:id="btnConfirm" text="%pos.settings.gui.confirm" prefWidth="120" prefHeight="36"/>
         </HBox>
     </bottom>
 </BorderPane>

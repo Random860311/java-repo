@@ -6,14 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import com.qa.lib.core.gui.component.LabeledTextField?>
 <VBox xmlns:fx="http://javafx.com/fxml"
       xmlns="http://javafx.com/javafx"
       fx:controller="com.qa.lib.ssh.gui.controller.SessionController"
       maxWidth="Infinity"
       spacing="10">
 
-    <TextField fx:id="txtHost" HBox.hgrow="ALWAYS" promptText="%ssh.gui.host"/>
-    <TextField fx:id="txtPort" HBox.hgrow="ALWAYS" promptText="Port"/>
-    <TextField fx:id="txtUsername" HBox.hgrow="ALWAYS" promptText="Username"/>
-    <TextField fx:id="txtPassword" HBox.hgrow="ALWAYS" promptText="Password"/>
+    <LabeledTextField fx:id="txtHost" label="%ssh.gui.lbl.host" promptText="%ssh.gui.address"/>
+    <LabeledTextField fx:id="txtPort" label="%ssh.gui.lbl.port" promptText="%ssh.gui.port"/>
+    <LabeledTextField fx:id="txtUsername" label="%ssh.gui.lbl.username" promptText="%ssh.gui.username"/>
+    <LabeledTextField fx:id="txtPassword" label="%ssh.gui.lbl.password" promptText="%ssh.gui.password"/>
+
 </VBox>

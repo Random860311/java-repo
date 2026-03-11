@@ -1,6 +1,7 @@
 package com.qa.lib.ssh.gui.controller;
 
 import com.google.inject.Inject;
+import com.qa.lib.core.gui.component.LabeledTextField;
 import com.qa.lib.core.gui.controller.base.ComponentController;
 import com.qa.lib.ssh.gui.viewmodel.SessionViewModel;
 import javafx.fxml.FXML;
@@ -8,13 +9,13 @@ import javafx.scene.control.TextField;
 
 public class SessionController extends ComponentController<SessionViewModel> {
     @FXML
-    private TextField txtHost;
+    private LabeledTextField txtHost;
     @FXML
-    private TextField txtPort;
+    private LabeledTextField txtPort;
     @FXML
-    private TextField txtUsername;
+    private LabeledTextField txtUsername;
     @FXML
-    private TextField txtPassword;
+    private LabeledTextField txtPassword;
 
     @Inject
     public SessionController(SessionViewModel viewModel) {

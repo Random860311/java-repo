@@ -3,6 +3,7 @@ package com.qa.app.pos.settings.gui;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.qa.app.pos.settings.gui.di.ApplicationModule;
+import com.qa.lib.core.AppContext;
 import com.qa.lib.core.service.i18n.II18nService;
 import com.qa.lib.ssh.service.ssh.ISshService;
 import javafx.application.Application;
@@ -26,6 +27,7 @@ public class PosSettingsApplication extends Application {
     public void init() throws Exception {
         super.init();
         injector = Guice.createInjector(new ApplicationModule());
+        AppContext.setInjector(injector);
 
         sshService = injector.getInstance(ISshService.class);
         i18nService = injector.getInstance(II18nService.class);
@@ -39,8 +41,6 @@ public class PosSettingsApplication extends Application {
         );
 
         loader.setControllerFactory(injector::getInstance);
-
-        System.out.println(i18nService.getString("ssh.gui.host"));
 
 //        try {
 //            SshConnectionConfigDto config = new SshConnectionConfigDto(
