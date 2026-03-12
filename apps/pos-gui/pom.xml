@@ -17,7 +17,7 @@
 
     <!-- Keep module-specific stuff here only -->
     <properties>
-        <mainClass>com.qa.app.pos.gui.PosSettingsApplication</mainClass>
+        <mainClass>com.qa.app.pos.gui.PosApplication</mainClass>
     </properties>
 
     <dependencies>

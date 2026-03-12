@@ -27,12 +27,11 @@ public class SettingsViewModel extends ScreenViewModel {
         this.settingsFormViewModel = settingsFormViewModel;
 
         this.fileListViewModel.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("MainViewModel.selectedItemProperty(): " + newValue);
+            logService.debug("MainViewModel.selectedItemProperty(): " + newValue);
             settingsFormViewModel.clearRows();
         });
         this.fileListViewModel.selectedSectionProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("MainViewModel.selectedSectionProperty(): " + newValue);
-
+            logService.debug("MainViewModel.selectedSectionProperty(): " + newValue);
             settingsFormViewModel.setRows(newValue.getData());
         });
     }

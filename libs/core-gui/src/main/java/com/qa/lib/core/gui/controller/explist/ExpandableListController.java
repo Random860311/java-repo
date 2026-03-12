@@ -1,10 +1,12 @@
 package com.qa.lib.core.gui.controller.explist;
 
+import com.google.inject.Inject;
 import com.qa.lib.core.gui.controller.base.ComponentController;
 import com.qa.lib.core.gui.utils.TitleListCell;
 import com.qa.lib.core.gui.viewmodel.explist.ExpItemViewModel;
 import com.qa.lib.core.gui.viewmodel.explist.ExpListViewModel;
 import com.qa.lib.core.gui.viewmodel.explist.SectionViewModel;
+import com.qa.lib.core.service.log.ILogService;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -79,7 +81,7 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
                     if (sectionVm != null) {
                         viewModel.setSelectedItem(itemVm);
                         viewModel.setSelectedSection(sectionVm);
-                        System.out.println(itemVm.getItemName() + " " + sectionVm.getTitle() + " " + sectionVm.getData());
+                        logService.debug(itemVm.getItemName() + " " + sectionVm.getTitle() + " " + sectionVm.getData());
                     }
                 });
 

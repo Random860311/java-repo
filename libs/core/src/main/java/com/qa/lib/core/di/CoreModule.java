@@ -10,6 +10,7 @@ public final class CoreModule extends AbstractModule {
     protected void configure() {
         install(new AsyncModule());
         install(new I18nModule());
+        install(new LoginModule());
     }
 
 }

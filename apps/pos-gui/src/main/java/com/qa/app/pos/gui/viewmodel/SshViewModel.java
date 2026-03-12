@@ -35,7 +35,7 @@ public class SshViewModel extends ScreenViewModel {
     }
 
     private void onConfirm() {
-        System.out.println("ssh confirm");
+        logService.debug("ssh confirm");
         SshJumpConfig config = sshViewModel.onConfirm();
 
         CompletableFuture.runAsync(() -> {
