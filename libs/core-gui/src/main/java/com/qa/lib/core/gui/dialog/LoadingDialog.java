@@ -16,18 +16,17 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-public final class LoadingDialog {
+public final class LoadingDialog extends BaseDialog {
     private final Stage stage;
     private final LoadingDialogController controller;
-    private final Executor uiExecutor;
 
     @Inject
-    public LoadingDialog(II18nService i18nService, @UiThread Executor uiExecutor) {
-        this.uiExecutor = uiExecutor;
+    public LoadingDialog(@UiThread Executor uiExecutor, II18nService i18nService) {
+        super(uiExecutor, i18nService);
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/view/loading-dialog.fxml"),
-                    i18nService.getBundle()
+                    this.i18nService.getBundle()
             );
             loader.setControllerFactory(AppContext.getInjector()::getInstance);
 

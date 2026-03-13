@@ -12,8 +12,8 @@
           alignment="TOP_LEFT"
           style="-fx-padding: 20;">
 
-    <Button fx:id="btnSettings" text="%pos.settings.gui.settings" prefWidth="120" prefHeight="60"/>
-    <Button fx:id="btnSsh" text="%pos.settings.gui.ssh" prefWidth="120" prefHeight="60"/>
+    <Button fx:id="btnSettings" text="%pos.gui.settings" prefWidth="120" prefHeight="60"/>
+    <Button fx:id="btnSsh" text="%pos.gui.ssh" prefWidth="120" prefHeight="60"/>
     <Button text="Button 3" prefWidth="120" prefHeight="60"/>
     <Button text="Button 4" prefWidth="120" prefHeight="60"/>
     <Button text="Button 5" prefWidth="120" prefHeight="60"/>

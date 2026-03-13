@@ -16,13 +16,11 @@ import java.util.stream.Collectors;
 
 public final class FileListViewModel extends ExpListViewModel<FileItemViewModel> {
     private final IConfigFileService configFileService;
-    private final Executor uiExecutor;
 
     @Inject
-    public FileListViewModel(IConfigFileService configFileService, @UiThread Executor uiExecutor) {
+    public FileListViewModel(IConfigFileService configFileService) {
         super();
         this.configFileService = configFileService;
-        this.uiExecutor = uiExecutor;
     }
 
     public void setFiles(String @NonNull [] files) throws Exception {

@@ -6,6 +6,7 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.qa.lib.core.qualifiers.BackgroundThread;
+import com.qa.lib.core.service.log.ILogService;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.*;
@@ -18,16 +19,17 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 public final class SSHServiceImp implements ISshService {
+    private final ILogService logService;
     private final Executor backgroundExecutor;
 
     private final Object sessionLock = new Object();
 
     private Session jumpSession;
     private Session targetSession;
-//    private int forwardedLocalPort;
 
     @Inject
-    public SSHServiceImp(@BackgroundThread Executor backgroundExecutor) {
+    public SSHServiceImp(ILogService logService, @BackgroundThread Executor backgroundExecutor) {
+        this.logService = logService;
         this.backgroundExecutor = backgroundExecutor;
     }
 
@@ -36,7 +38,6 @@ public final class SSHServiceImp implements ISshService {
             close();
             try {
                 JSch jsch = new JSch();
-
                 Session newTargetSession = createSession(
                         jsch,
                         config.getTargetHost(),
@@ -44,10 +45,8 @@ public final class SSHServiceImp implements ISshService {
                         config.getTargetUsername(),
                         config.getTargetPassword()
                 );
-
                 this.jumpSession = null;
                 this.targetSession = newTargetSession;
-//                this.forwardedLocalPort = 0;
             } catch (Exception ex) {
                 close();
                 throw new RuntimeException("Failed to initialize SSH session.", ex);
@@ -55,42 +54,45 @@ public final class SSHServiceImp implements ISshService {
         }
     }
 
-    public void init(SshJumpConfig config) {
-        synchronized (sessionLock) {
-            close();
-
-            try {
-                JSch jsch = new JSch();
-
-                Session newJumpSession = createSession(
-                        jsch,
-                        config.getJumpHost(),
-                        config.getJumpPort(),
-                        config.getJumpUsername(),
-                        config.getJumpPassword()
-                );
-
-                int assignedPort = newJumpSession.setPortForwardingL(
-                        0,
-                        config.getTargetHost(),
-                        config.getTargetPort()
-                );
-
-                Session newTargetSession = createSession(
-                        jsch,
-                        "127.0.0.1",
-                        assignedPort,
-                        config.getTargetUsername(),
-                        config.getTargetPassword()
-                );
-
-                this.jumpSession = newJumpSession;
-                this.targetSession = newTargetSession;
-//                this.forwardedLocalPort = assignedPort;
-
-            } catch (Exception ex) {
+    public void init(@NonNull SshJumpConfig config) {
+        if (!config.isEnabled()) {
+            init((SshConfig) config);
+        }
+        else {
+            synchronized (sessionLock) {
                 close();
-                throw new RuntimeException("Failed to initialize SSH jump session.", ex);
+                try {
+                    JSch jsch = new JSch();
+                    logService.debug("Creating Jump Session");
+                    Session newJumpSession = createSession(
+                            jsch,
+                            config.getJumpHost(),
+                            config.getJumpPort(),
+                            config.getJumpUsername(),
+                            config.getJumpPassword()
+                    );
+
+                    int assignedPort = newJumpSession.setPortForwardingL(
+                            0,
+                            config.getTargetHost(),
+                            config.getTargetPort()
+                    );
+                    logService.debug("Creating Target Session");
+                    Session newTargetSession = createSession(
+                            jsch,
+                            "127.0.0.1",
+                            assignedPort,
+                            config.getTargetUsername(),
+                            config.getTargetPassword()
+                    );
+
+                    this.jumpSession = newJumpSession;
+                    this.targetSession = newTargetSession;
+
+                } catch (Exception ex) {
+                    close();
+                    throw new RuntimeException("Failed to initialize SSH jump session.", ex);
+                }
             }
         }
     }
@@ -276,7 +278,7 @@ public final class SSHServiceImp implements ISshService {
         }
     }
 
-    public boolean isConnectedTo(SshConfig config) {
+    public boolean isConnectedTo(@NonNull SshConfig config) {
         boolean result = isConnectedTo(config.getTargetHost(), config.getTargetPort());
         synchronized (sessionLock) {
             return result && config.getTargetUsername().equals(targetSession.getUserName());
@@ -284,6 +286,7 @@ public final class SSHServiceImp implements ISshService {
     }
 
     private @NonNull Session createSession(@NonNull JSch jsch, String host, int port, String username, String password) throws Exception {
+        logService.debug("Establishing SSH connection to: " + host + ":" + username);
         Properties sshConfig = new Properties();
         sshConfig.put("StrictHostKeyChecking", "no");
 
@@ -293,6 +296,8 @@ public final class SSHServiceImp implements ISshService {
         session.setServerAliveInterval(120_000);
         session.setServerAliveCountMax(3);
         session.connect(15_000);
+
+        logService.debug("Created SSH connection to: " + host + ":" + port);
 
         return session;
     }

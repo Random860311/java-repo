@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 
-public class TargetController extends ComponentController<TargetViewModel> {
+public final class TargetController extends ComponentController<TargetViewModel> {
     @FXML
     private SessionController targetSessionController;
 

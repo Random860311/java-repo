@@ -5,6 +5,7 @@ import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.qa.lib.core.gui.controller.dialog.LoadingDialogController;
+import com.qa.lib.core.gui.dialog.AlertDialog;
 import com.qa.lib.core.gui.dialog.LoadingDialog;
 import com.qa.lib.core.gui.qualifiers.UiThread;
 import com.qa.lib.core.gui.service.async.FxUiExecutor;
@@ -32,6 +33,9 @@ public final class CoreGuiModule extends AbstractModule {
 
         bind(LoadingDialogController.class);
         bind(LoadingDialog.class).in(Scopes.SINGLETON);
+
+        bind(AlertDialog.class).in(Scopes.SINGLETON);
+
         bind(IDialogService.class).to(DialogServiceImp.class).in(Scopes.SINGLETON);
     }
 }

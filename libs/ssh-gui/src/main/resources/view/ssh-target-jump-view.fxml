@@ -18,15 +18,21 @@
 
         <TitledPane text="%ssh.gui.session.target"
                     collapsible="false"
-                    HBox.hgrow="ALWAYS">
+                    HBox.hgrow="ALWAYS"
+                    maxHeight="Infinity">
             <fx:include source="ssh-session-view.fxml" fx:id="targetSession"/>
         </TitledPane>
         <TitledPane text="%ssh.gui.session.jump"
                     collapsible="false"
                     HBox.hgrow="ALWAYS">
-            <fx:include source="ssh-session-view.fxml" fx:id="jumpSession"/>
+            <VBox spacing="20"
+                  alignment="CENTER_RIGHT"
+                  HBox.hgrow="ALWAYS">
+                <fx:include source="ssh-session-view.fxml" fx:id="jumpSession"/>
+                <CheckBox fx:id="chbJumpEnabled" text="%ssh.gui.enabled"  />
+            </VBox>
         </TitledPane>
     </HBox>
 
 </VBox>
-<!--        style="-fx-background-color: #2b2b2b;"-->
+        <!--        style="-fx-background-color: #2b2b2b;"-->

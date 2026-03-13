@@ -3,8 +3,11 @@ package com.qa.lib.ssh.gui.viewmodel;
 import com.google.inject.Inject;
 import com.qa.lib.core.gui.viewmodel.base.ComponentViewModel;
 import com.qa.lib.ssh.service.ssh.SshJumpConfig;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.StringProperty;
 
-public class TargetJumpViewModel extends ComponentViewModel {
+public final class TargetJumpViewModel extends ComponentViewModel {
     private final SessionViewModel targetSessionViewModel;
     private final SessionViewModel jumpSessionViewModel;
 
@@ -13,6 +16,8 @@ public class TargetJumpViewModel extends ComponentViewModel {
         this.jumpSessionViewModel = jumpSessionViewModel;
         this.targetSessionViewModel = targetSessionViewModel;
     }
+
+    public BooleanProperty jumpEnabledProperty() { return jumpSessionViewModel.enabledProperty(); }
 
     public SessionViewModel getTargetSessionViewModel() {
         return targetSessionViewModel;
@@ -31,7 +36,8 @@ public class TargetJumpViewModel extends ComponentViewModel {
                 jumpSessionViewModel.hostProperty().get(),
                 Integer.getInteger(jumpSessionViewModel.portProperty().get(), 22),
                 jumpSessionViewModel.usernameProperty().get(),
-                jumpSessionViewModel.passwordProperty().get()
+                jumpSessionViewModel.passwordProperty().get(),
+                jumpSessionViewModel.enabledProperty().get()
         );
     }
 }

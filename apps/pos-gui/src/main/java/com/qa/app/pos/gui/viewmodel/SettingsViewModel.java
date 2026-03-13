@@ -1,13 +1,14 @@
 package com.qa.app.pos.gui.viewmodel;
 
 import com.google.inject.Inject;
+import com.qa.lib.core.gui.service.dialog.IDialogService;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
 import com.qa.lib.pos.service.config.IPosConfigFileService;
 import com.qa.lib.settings.gui.viewmodel.file.FileListViewModel;
 import com.qa.lib.settings.gui.viewmodel.form.FormViewModel;
 
-public class SettingsViewModel extends ScreenViewModel {
+public final class SettingsViewModel extends ScreenViewModel {
     private final IPosConfigFileService posConfigFileService;
 
     private final FileListViewModel fileListViewModel;
@@ -18,9 +19,10 @@ public class SettingsViewModel extends ScreenViewModel {
             FileListViewModel fileListViewModel,
             FormViewModel settingsFormViewModel,
             IPosConfigFileService posConfigFileService,
-            INavigationService navigationService
+            INavigationService navigationService,
+            IDialogService dialogService
     ) {
-        super(navigationService);
+        super(navigationService, dialogService);
 
         this.posConfigFileService = posConfigFileService;
         this.fileListViewModel = fileListViewModel;

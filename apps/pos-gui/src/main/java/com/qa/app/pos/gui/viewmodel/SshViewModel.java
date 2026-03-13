@@ -4,26 +4,23 @@ import com.google.inject.Inject;
 import com.qa.lib.core.gui.service.dialog.IDialogService;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
-import com.qa.lib.core.qualifiers.BackgroundThread;
 import com.qa.lib.ssh.gui.viewmodel.TargetJumpViewModel;
+import com.qa.lib.ssh.service.ssh.ISshService;
 import com.qa.lib.ssh.service.ssh.SshJumpConfig;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 
-public class SshViewModel extends ScreenViewModel {
+public final class SshViewModel extends ScreenViewModel {
     private final Runnable confirmCommand = this::onConfirm;
 
+    private final ISshService sshService;
     private final TargetJumpViewModel sshViewModel;
-    private final Executor backgroundExecutor;
-    private final IDialogService dialogService;
 
     @Inject
-    public SshViewModel(INavigationService navigationService, TargetJumpViewModel sshViewModel, @BackgroundThread Executor backgroundExecutor, IDialogService dialogService) {
-        super(navigationService);
+    public SshViewModel(INavigationService navigationService, TargetJumpViewModel sshViewModel, IDialogService dialogService, ISshService sshService) {
+        super(navigationService, dialogService);
         this.sshViewModel = sshViewModel;
-        this.backgroundExecutor = backgroundExecutor;
-        this.dialogService = dialogService;
+        this.sshService = sshService;
     }
 
     public Runnable getConfirmCommand() {
@@ -35,21 +32,14 @@ public class SshViewModel extends ScreenViewModel {
     }
 
     private void onConfirm() {
-        logService.debug("ssh confirm");
-        SshJumpConfig config = sshViewModel.onConfirm();
-
-        CompletableFuture.runAsync(() -> {
-            try {
-                dialogService.showInfiniteDialog();
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }).thenAcceptAsync(result -> {
-            dialogService.hideInfiniteDialog();
-        }).exceptionally(ex -> {
-            ex.printStackTrace();
-            return null;
-        });
+        executeTask(() -> {
+            SshJumpConfig config = sshViewModel.onConfirm();
+            sshService.init(config);
+        }, i18nService.getString("pos.gui.ssh.connection.init"), i18nService.getString("pos.gui.ssh.connection.ok"), i18nService.getString("pos.gui.ssh.connection.fail"))
+                .whenComplete((success, exception) -> navigationService.back())
+                .exceptionally(throwable -> {
+                    logService.error(throwable.getMessage(), throwable);
+                    return null;
+                });
     }
 }

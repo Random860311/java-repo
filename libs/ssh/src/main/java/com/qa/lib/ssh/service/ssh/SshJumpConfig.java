@@ -5,17 +5,19 @@ public class SshJumpConfig extends SshConfig {
     private int jumpPort;
     private String jumpUsername;
     private String jumpPassword;
+    private boolean enabled;
 
     public SshJumpConfig(String targetHost, String jumpHost, int port, String userName, String password) {
-        this(targetHost, port, userName, password, jumpHost, port, userName, password);
+        this(targetHost, port, userName, password, jumpHost, port, userName, password, true);
     }
 
-    public SshJumpConfig(String targetHost, int targetPort, String targetUsername, String targetPassword, String jumpHost, int jumpPort, String jumpUsername, String jumpPassword) {
+    public SshJumpConfig(String targetHost, int targetPort, String targetUsername, String targetPassword, String jumpHost, int jumpPort, String jumpUsername, String jumpPassword, boolean enabled) {
         super(targetHost, targetPort, targetUsername, targetPassword);
         this.jumpHost = jumpHost;
         this.jumpPort = jumpPort;
         this.jumpUsername = jumpUsername;
         this.jumpPassword = jumpPassword;
+        this.enabled = enabled;
     }
 
     public String getJumpHost() {
@@ -48,5 +50,13 @@ public class SshJumpConfig extends SshConfig {
 
     public void setJumpPassword(String jumpPassword) {
         this.jumpPassword = jumpPassword;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

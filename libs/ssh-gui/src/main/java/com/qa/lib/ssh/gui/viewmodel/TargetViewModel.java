@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.qa.lib.core.gui.viewmodel.base.ComponentViewModel;
 import com.qa.lib.ssh.service.ssh.SshConfig;
 
-public class TargetViewModel extends ComponentViewModel {
+public final class TargetViewModel extends ComponentViewModel {
     private final SessionViewModel sessionViewModel;
 
     @Inject

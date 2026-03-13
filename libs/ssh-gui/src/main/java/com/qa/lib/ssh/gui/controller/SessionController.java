@@ -7,7 +7,7 @@ import com.qa.lib.ssh.gui.viewmodel.SessionViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class SessionController extends ComponentController<SessionViewModel> {
+public final class SessionController extends ComponentController<SessionViewModel> {
     @FXML
     private LabeledTextField txtHost;
     @FXML
@@ -31,6 +31,16 @@ public class SessionController extends ComponentController<SessionViewModel> {
             txtPort.textProperty().bindBidirectional(viewModel.portProperty());
             txtUsername.textProperty().bindBidirectional(viewModel.usernameProperty());
             txtPassword.textProperty().bindBidirectional(viewModel.passwordProperty());
+
+            txtHost.editableProperty().bind(viewModel.enabledProperty());
+            txtPort.editableProperty().bind(viewModel.enabledProperty());
+            txtUsername.editableProperty().bind(viewModel.enabledProperty());
+            txtPassword.editableProperty().bind(viewModel.enabledProperty());
+
+            txtHost.disableProperty().bind(viewModel.enabledProperty().not());
+            txtPort.disableProperty().bind(viewModel.enabledProperty().not());
+            txtUsername.disableProperty().bind(viewModel.enabledProperty().not());
+            txtPassword.disableProperty().bind(viewModel.enabledProperty().not());
         }
     }
 }
