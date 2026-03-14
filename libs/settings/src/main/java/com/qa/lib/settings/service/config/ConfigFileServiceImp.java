@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-public class ConfigFileServiceImp implements IConfigFileService {
+public final class ConfigFileServiceImp implements IConfigFileService {
     private final Executor backgroundExecutor;
 
     @Inject
@@ -21,7 +21,7 @@ public class ConfigFileServiceImp implements IConfigFileService {
         this.backgroundExecutor = backgroundExecutor;
     }
 
-    private ConfigFileDto readConfigFile(String fileName) {
+    public ConfigFileDto readConfigFile(String fileName) {
         INIConfiguration config = new INIConfiguration();
         FileHandler fileHandler = new FileHandler(config);
 
@@ -47,18 +47,21 @@ public class ConfigFileServiceImp implements IConfigFileService {
     }
 
     @Override
+    public List<ConfigFileDto> readConfigFile(String[] files) {
+        List<ConfigFileDto> configFileDtos = new ArrayList<>();
+        for (String fileName : files) {
+            configFileDtos.add(readConfigFile(fileName));
+        }
+        return configFileDtos;
+    }
+
+    @Override
     public CompletableFuture<ConfigFileDto> readConfigFileAsync(String fileName) {
         return CompletableFuture.supplyAsync(() -> readConfigFile(fileName));
     }
 
     @Override
     public CompletableFuture<List<ConfigFileDto>> readConfigFileAsync(String[] files) {
-        return CompletableFuture.supplyAsync(() -> {
-            List<ConfigFileDto> configFileDtos = new ArrayList<>();
-            for (String fileName : files) {
-                configFileDtos.add(readConfigFile(fileName));
-            }
-            return configFileDtos;
-        }, backgroundExecutor);
+        return CompletableFuture.supplyAsync(() -> readConfigFile(files), backgroundExecutor);
     }
 }

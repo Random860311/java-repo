@@ -8,21 +8,36 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <?import javafx.scene.control.SplitPane?>
-<BorderPane xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8"
             fx:controller="com.qa.app.pos.gui.controller.SettingsController">
     <center>
         <SplitPane dividerPositions="0.3">
             <fx:include fx:id="leftFileList"
                         source="/view/settings-file-list-view.fxml"/>
-            <fx:include fx:id="settingsForm"
-                        source="/view/settings-form-view.fxml"/>
+            <BorderPane>
+                <center>
+                    <fx:include fx:id="settingsForm"
+                                source="/view/settings-form-view.fxml"/>
+                </center>
+                <bottom>
+                    <HBox alignment="CENTER_RIGHT"
+                          spacing="10"
+                          maxWidth="Infinity"
+                          style="-fx-padding: 6;">
+                        <Button fx:id="btnConfirm" text="%pos.gui.confirm" prefWidth="120" prefHeight="36"/>
+                    </HBox>
+                </bottom>
+            </BorderPane>
         </SplitPane>
     </center>
 </BorderPane>
 
-<!--Dont grow-->
-<!--        maxHeight="-Infinity"-->
-<!--        maxWidth="-Infinity"-->
-<!--        minHeight="-Infinity"-->
-<!--        minWidth="-Infinity"-->
+        <!--Dont grow-->
+        <!--        maxHeight="-Infinity"-->
+        <!--        maxWidth="-Infinity"-->
+        <!--        minHeight="-Infinity"-->
+        <!--        minWidth="-Infinity"-->

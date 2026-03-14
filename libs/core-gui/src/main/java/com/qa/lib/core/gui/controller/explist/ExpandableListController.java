@@ -1,12 +1,10 @@
 package com.qa.lib.core.gui.controller.explist;
 
-import com.google.inject.Inject;
 import com.qa.lib.core.gui.controller.base.ComponentController;
 import com.qa.lib.core.gui.utils.TitleListCell;
 import com.qa.lib.core.gui.viewmodel.explist.ExpItemViewModel;
 import com.qa.lib.core.gui.viewmodel.explist.ExpListViewModel;
 import com.qa.lib.core.gui.viewmodel.explist.SectionViewModel;
-import com.qa.lib.core.service.log.ILogService;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,6 +15,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public abstract class ExpandableListController<TViewModel extends ExpListViewModel<TItem>, TItem extends ExpItemViewModel> extends ComponentController<TViewModel> {
 
+    private ListView<SectionViewModel> activeSectionsList;
+
     @FXML
     protected VBox panesContainer;
 
@@ -25,13 +25,13 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
     public void setViewModel(TViewModel viewModel) {
         super.setViewModel(viewModel);
         if (this.viewModel != null) {
-            this.viewModel.getExpItemsVm().removeListener(itemListener);
+            this.viewModel.getItems().removeListener(itemListener);
         }
 
         this.viewModel = viewModel;
 
         if (this.viewModel != null) {
-            this.viewModel.getExpItemsVm().addListener(itemListener);
+            this.viewModel.getItems().addListener(itemListener);
         }
 
         rebuildAll();
@@ -42,7 +42,7 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
 
         if (viewModel == null) return;
 
-        for (TItem itemVm : viewModel.getExpItemsVm()) {
+        for (TItem itemVm : viewModel.getItems()) {
             panesContainer.getChildren().add(buildFilePane(itemVm));
         }
     }
@@ -75,14 +75,18 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
         sectionsList.setMaxHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
 
         // Selection -> VM
-        sectionsList.getSelectionModel()
-                .selectedItemProperty()
+        sectionsList.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldV, sectionVm) -> {
-                    if (sectionVm != null) {
-                        viewModel.setSelectedItem(itemVm);
-                        viewModel.setSelectedSection(sectionVm);
-                        logService.debug(itemVm.getItemName() + " " + sectionVm.getTitle() + " " + sectionVm.getData());
+                    if (sectionVm == null) return;
+
+                    if (activeSectionsList != null && activeSectionsList != sectionsList) {
+                        activeSectionsList.getSelectionModel().clearSelection();
                     }
+                    activeSectionsList = sectionsList;
+
+                    viewModel.setSelectedItem(itemVm);
+                    viewModel.setSelectedSection(sectionVm);
+                    logService.debug(itemVm.getItemName() + " " + sectionVm.getTitle() + " " + sectionVm.getData());
                 });
 
         TitledPane pane = new TitledPane();
@@ -92,10 +96,17 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
         // Expanded sync (two-way)
         pane.expandedProperty().bindBidirectional(itemVm.expandedProperty());
 
-
         // Clicking header (even without selecting a section) sets selected file
         pane.setGraphic(new Label()); // keeps header layout simple
-        pane.setOnMouseClicked(e -> viewModel.setSelectedItem(itemVm));
+        pane.setOnMouseClicked(e -> {
+            if (activeSectionsList != null && activeSectionsList != sectionsList) {
+                activeSectionsList.getSelectionModel().clearSelection();
+            }
+
+            viewModel.setSelectedItem(itemVm);
+//            sectionsList.getSelectionModel().clearSelection();
+//            viewModel.setSelectedSection(null);
+        });
 
         return pane;
     }
@@ -116,6 +127,6 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
     @Override
     public void dispose() {
         super.dispose();
-        viewModel.getExpItemsVm().removeListener(itemListener);
+        viewModel.getItems().removeListener(itemListener);
     }
 }

@@ -27,4 +27,8 @@ public class ConfigFileDto {
     public Map<String, Object> getSectionData(String section) {
         return configs.get(section);
     }
+
+    public void setSectionData(String section, Map<String, Object> data) {
+        configs.put(section, data);
+    }
 }

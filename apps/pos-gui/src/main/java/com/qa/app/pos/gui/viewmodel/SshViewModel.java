@@ -36,10 +36,6 @@ public final class SshViewModel extends ScreenViewModel {
             SshJumpConfig config = sshViewModel.onConfirm();
             sshService.init(config);
         }, i18nService.getString("pos.gui.ssh.connection.init"), i18nService.getString("pos.gui.ssh.connection.ok"), i18nService.getString("pos.gui.ssh.connection.fail"))
-                .whenComplete((success, exception) -> navigationService.back())
-                .exceptionally(throwable -> {
-                    logService.error(throwable.getMessage(), throwable);
-                    return null;
-                });
+                .whenComplete((success, exception) -> navigationService.back());
     }
 }

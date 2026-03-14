@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class SectionViewModel extends BaseViewModel implements IHasTitle {
     private final StringProperty title = new SimpleStringProperty(this, "title", "");
-    private final Map<String, Object> data;
+    private Map<String, Object> data;
 
     public SectionViewModel(String title, Map<String, Object> data) {
         this.title.set(title);
@@ -24,4 +24,8 @@ public class SectionViewModel extends BaseViewModel implements IHasTitle {
     public void setTitle(String value) { title.set(value); }
 
     public Map<String, Object> getData() { return data; }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
+    }
 }
