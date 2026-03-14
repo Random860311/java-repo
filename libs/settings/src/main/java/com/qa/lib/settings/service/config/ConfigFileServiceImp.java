@@ -1,27 +1,19 @@
 package com.qa.lib.settings.service.config;
 
-import com.google.inject.Inject;
-import com.qa.lib.core.qualifiers.BackgroundThread;
+
 import com.qa.lib.settings.dto.ConfigFileDto;
 import org.apache.commons.configuration2.INIConfiguration;
 import org.apache.commons.configuration2.SubnodeConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.io.FileHandler;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 
 public final class ConfigFileServiceImp implements IConfigFileService {
-    private final Executor backgroundExecutor;
 
-    @Inject
-    public ConfigFileServiceImp(@BackgroundThread Executor backgroundExecutor) {
-        this.backgroundExecutor = backgroundExecutor;
-    }
-
-    public ConfigFileDto readConfigFile(String fileName) {
+    public @NonNull ConfigFileDto readConfigFile(String fileName) {
         INIConfiguration config = new INIConfiguration();
         FileHandler fileHandler = new FileHandler(config);
 
@@ -47,21 +39,25 @@ public final class ConfigFileServiceImp implements IConfigFileService {
     }
 
     @Override
-    public List<ConfigFileDto> readConfigFile(String[] files) {
-        List<ConfigFileDto> configFileDtos = new ArrayList<>();
-        for (String fileName : files) {
-            configFileDtos.add(readConfigFile(fileName));
+    public void writeConfigFile(@NonNull ConfigFileDto configFileDto) {
+        INIConfiguration config = new INIConfiguration();
+        FileHandler fileHandler = new FileHandler(config);
+
+        try {
+            for (Map.Entry<String, Map<String, Object>> sectionEntry : configFileDto.getConfigs().entrySet()) {
+                String sectionName = sectionEntry.getKey();
+                Map<String, Object> items = sectionEntry.getValue();
+
+                for (Map.Entry<String, Object> item : items.entrySet()) {
+                    config.setProperty(sectionName + "." + item.getKey(), item.getValue());
+                }
+            }
+
+            fileHandler.save(new File(configFileDto.getFileName()));
+
+        } catch (ConfigurationException e) {
+            throw new RuntimeException(e);
         }
-        return configFileDtos;
     }
 
-    @Override
-    public CompletableFuture<ConfigFileDto> readConfigFileAsync(String fileName) {
-        return CompletableFuture.supplyAsync(() -> readConfigFile(fileName));
-    }
-
-    @Override
-    public CompletableFuture<List<ConfigFileDto>> readConfigFileAsync(String[] files) {
-        return CompletableFuture.supplyAsync(() -> readConfigFile(files), backgroundExecutor);
-    }
 }

@@ -186,9 +186,12 @@ public final class SSHServiceImp implements ISshService {
                 channel = (ChannelSftp) session.openChannel("sftp");
                 channel.connect();
 
+                Path local = Paths.get(localPath);
+                Files.createDirectories(local.getParent());
+
                 try (
                         InputStream inputStream = channel.get(remotePath);
-                        OutputStream outputStream = Files.newOutputStream(Paths.get(localPath))
+                        OutputStream outputStream = Files.newOutputStream(local)
                 ) {
                     byte[] buffer = new byte[4096];
                     int bytesRead;
@@ -268,16 +271,22 @@ public final class SSHServiceImp implements ISshService {
         }
     }
 
-    public boolean isConnectedTo(String targetHost, int targetPort) {
+    @Override
+    public boolean isConnected() {
         synchronized (sessionLock) {
-            if (targetSession == null || !targetSession.isConnected()) {
-                return false;
-            }
-
-            return targetHost.equalsIgnoreCase(targetSession.getHost()) && targetSession.getPort() == targetPort;
+            return targetSession != null && !targetSession.isConnected();
         }
     }
 
+    @Override
+    public boolean isConnectedTo(String targetHost, int targetPort) {
+        boolean result = isConnected();
+        synchronized (sessionLock) {
+            return result && targetHost.equalsIgnoreCase(targetSession.getHost()) && targetSession.getPort() == targetPort;
+        }
+    }
+
+    @Override
     public boolean isConnectedTo(@NonNull SshConfig config) {
         boolean result = isConnectedTo(config.getTargetHost(), config.getTargetPort());
         synchronized (sessionLock) {
@@ -335,37 +344,6 @@ public final class SSHServiceImp implements ISshService {
 
             return targetSession;
         }
-    }
-
-    @Override
-    public CompletableFuture<Void> initAsync(SshConfig config) {
-        return CompletableFuture.runAsync(() -> init(config), backgroundExecutor);
-    }
-
-    @Override
-    public CompletableFuture<Void> initAsync(SshJumpConfig config) {
-        return CompletableFuture.runAsync(() -> init(config), backgroundExecutor);
-    }
-
-    @Override
-    public CompletableFuture<String> runCommandAsync(String command) {
-        return CompletableFuture.supplyAsync(() -> runCommand(command), backgroundExecutor);
-    }
-
-    public CompletableFuture<Void> downloadTextFileAsync(String remotePath, String localPath) {
-        return CompletableFuture.runAsync(() -> downloadTextFile(remotePath, localPath), backgroundExecutor);
-    }
-
-    public CompletableFuture<String> downloadTextFileAsync(String remotePath) {
-        return CompletableFuture.supplyAsync(() -> downloadTextFile(remotePath), backgroundExecutor);
-    }
-
-    public CompletableFuture<Void> uploadTextFileAsync(String remotePath, String content) {
-        return CompletableFuture.runAsync(() -> uploadTextFile(remotePath, content), backgroundExecutor);
-    }
-
-    public CompletableFuture<Void> uploadTextAsync(String remotePath, String localPath) {
-        return CompletableFuture.runAsync(() -> uploadFile(remotePath, localPath), backgroundExecutor);
     }
 
     public void close() {

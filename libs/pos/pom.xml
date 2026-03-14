@@ -30,6 +30,12 @@
 
         <dependency>
             <groupId>com.qa</groupId>
+            <artifactId>ssh</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qa</groupId>
             <artifactId>settings</artifactId>
             <version>${project.version}</version>
         </dependency>

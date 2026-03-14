@@ -104,8 +104,8 @@ public abstract class ExpandableListController<TViewModel extends ExpListViewMod
             }
 
             viewModel.setSelectedItem(itemVm);
-//            sectionsList.getSelectionModel().clearSelection();
-//            viewModel.setSelectedSection(null);
+            sectionsList.getSelectionModel().clearSelection();
+            viewModel.setSelectedSection(null);
         });
 
         return pane;

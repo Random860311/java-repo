@@ -6,7 +6,7 @@ import com.qa.lib.core.gui.controller.base.ScreenController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class HomeController extends ScreenController<HomeViewModel> {
+public final class HomeController extends ScreenController<HomeViewModel> {
     @FXML
     private Button btnSettings;
     @FXML

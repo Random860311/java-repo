@@ -1,6 +1,7 @@
 package com.qa.lib.core.service.log;
 
 import com.google.inject.Inject;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,8 +22,8 @@ public final class FileLogService extends BaseLogService {
     @Inject
     public FileLogService() {
         ResourceBundle bundle = ResourceBundle.getBundle("log.log-config");
-        this.filePath = Paths.get(bundle.getString("core.log.file.path"));
-        this.append = Boolean.parseBoolean(bundle.getString("core.log.file.append"));
+        filePath = Paths.get(System.getProperty("user.dir"), bundle.getString("core.log.file.path"));
+        append = Boolean.parseBoolean(bundle.getString("core.log.file.append"));
         ensureParentDirectoryExists();
     }
 
@@ -73,7 +74,7 @@ public final class FileLogService extends BaseLogService {
         }
     }
 
-    private String stackTraceToString(Throwable throwable) {
+    private String stackTraceToString(@NonNull Throwable throwable) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         throwable.printStackTrace(pw);

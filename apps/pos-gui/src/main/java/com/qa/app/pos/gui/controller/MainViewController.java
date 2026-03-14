@@ -7,7 +7,7 @@ import com.qa.lib.core.gui.controller.base.ScreenController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
-public class MainViewController extends ScreenController<MainViewModel> {
+public final class MainViewController extends ScreenController<MainViewModel> {
     @FXML
     private BorderPane rootPane;
 

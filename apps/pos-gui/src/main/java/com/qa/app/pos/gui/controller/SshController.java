@@ -7,7 +7,7 @@ import com.qa.lib.ssh.gui.controller.TargetJumpController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class SshController extends ScreenController<SshViewModel> {
+public final class SshController extends ScreenController<SshViewModel> {
     @FXML
     private TargetJumpController targetJumpController;
 

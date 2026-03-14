@@ -28,7 +28,7 @@
                           spacing="10"
                           maxWidth="Infinity"
                           style="-fx-padding: 6;">
-                        <Button fx:id="btnConfirm" text="%pos.gui.confirm" prefWidth="120" prefHeight="36"/>
+                        <Button fx:id="btnSave" text="%pos.gui.save" prefWidth="120" prefHeight="36"/>
                     </HBox>
                 </bottom>
             </BorderPane>

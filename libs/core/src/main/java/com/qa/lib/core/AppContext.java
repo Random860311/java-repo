@@ -4,7 +4,8 @@ import com.google.inject.Injector;
 
 public final class AppContext {
     private static Injector injector;
-    private static boolean isProdEnv = false;
+    private static boolean prodEnv = false;
+    private static boolean runningLocally = true;
 
     public static void setInjector(Injector injector) {
         AppContext.injector = injector;
@@ -14,15 +15,25 @@ public final class AppContext {
         return injector;
     }
 
-    public static boolean isProdEnv() {
-        return isProdEnv;
-    }
-
-    public static void setProdEnv(boolean prodEnv) {
-        isProdEnv = prodEnv;
-    }
-
     public static void inject(Object object) {
         injector.injectMembers(object);
     }
+
+    public static boolean isProdEnv() {
+        return prodEnv;
+    }
+
+    public static void setProdEnv(boolean prodEnv) {
+        AppContext.prodEnv = prodEnv;
+    }
+
+    public static boolean isRunningLocally() {
+        return runningLocally;
+    }
+
+    public static void setRunningLocally(boolean runningLocally) {
+        AppContext.runningLocally = runningLocally;
+    }
+
+
 }

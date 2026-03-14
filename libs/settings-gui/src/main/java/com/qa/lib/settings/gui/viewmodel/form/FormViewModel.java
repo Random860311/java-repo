@@ -4,6 +4,7 @@ import com.qa.lib.core.gui.viewmodel.base.ComponentViewModel;
 import com.qa.lib.settings.dto.ConfigFileDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public final class FormViewModel extends ComponentViewModel {
             if(history.containsKey(fileName)) {
                 history.get(fileName).put(section, values);
             }
-            else {
+            else if(!StringUtils.isBlank(fileName) && !StringUtils.isBlank(section)) {
                 Map<String, Map<String, Object>> newSection = new HashMap<>();
                 newSection.put(section, values);
                 history.put(fileName, newSection);
@@ -48,13 +49,15 @@ public final class FormViewModel extends ComponentViewModel {
     }
 
     public void clearRows() {
-        if(!history.containsKey(currentFileName)) {
-            history.put(currentFileName, new HashMap<>());
+        if(!StringUtils.isBlank(currentFileName) && !StringUtils.isBlank(currentSection)) {
+            if(!history.containsKey(currentFileName)) {
+                history.put(currentFileName, new HashMap<>());
+            }
+            if(!history.get(currentFileName).containsKey(currentSection)) {
+                history.get(currentFileName).put(currentSection, new HashMap<>());
+            }
+            history.get(currentFileName).get(currentSection).putAll(getValues());
         }
-        if(!history.get(currentFileName).containsKey(currentSection)) {
-            history.get(currentFileName).put(currentSection, new HashMap<>());
-        }
-        history.get(currentFileName).get(currentSection).putAll(getValues());
 
         rows.clear();
     }
@@ -73,7 +76,7 @@ public final class FormViewModel extends ComponentViewModel {
         return configFiles;
     }
 
-    private Map<String, Object> getValues() {
+    private @NonNull Map<String, Object> getValues() {
         Map<String, Object> values = new HashMap<>();
         for (FormRowViewModel row : rows) {
             values.put(row.nameProperty().get(), row.valueProperty().get());

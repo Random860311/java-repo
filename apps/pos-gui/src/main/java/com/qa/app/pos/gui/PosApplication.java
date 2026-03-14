@@ -37,7 +37,7 @@ public class PosApplication extends Application {
                 getClass().getResource("/view/pos-main-screen.fxml"),
                 i18nService.getBundle()
         );
-
+        System.out.println(System.getProperty("user.dir"));
         loader.setControllerFactory(injector::getInstance);
 
 //        try {
