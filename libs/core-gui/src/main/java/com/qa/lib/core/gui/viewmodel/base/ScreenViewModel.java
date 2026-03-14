@@ -1,6 +1,7 @@
 package com.qa.lib.core.gui.viewmodel.base;
 
 import com.google.inject.Inject;
+import com.qa.lib.core.exception.AppException;
 import com.qa.lib.core.gui.controller.IParameterReceiver;
 import com.qa.lib.core.gui.service.dialog.IDialogService;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
@@ -52,7 +53,8 @@ public abstract class ScreenViewModel extends BaseViewModel implements IParamete
                         dialogService.showInfoAsync(successMessage).thenApply(unused -> executionResult.result);
 
                     } else {
-                        dialogService.showErrorAsync(failMessage, executionResult.throwable).whenComplete((result, throwable) -> {
+                        String message = executionResult.throwable instanceof AppException ? ((AppException) executionResult.throwable).getUserMessage() : failMessage;
+                        dialogService.showErrorAsync(message, executionResult.throwable).whenComplete((result, throwable) -> {
                             future.completeExceptionally(executionResult.throwable);
                         });
                     }

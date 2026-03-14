@@ -10,9 +10,9 @@
         <module name="settings" />
         <module name="pos" />
         <module name="settings-gui" />
+        <module name="pos-app" />
         <module name="core-gui" />
         <module name="ssh" />
-        <module name="pos-gui" />
         <module name="ssh-gui" />
       </profile>
     </annotationProcessing>

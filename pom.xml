@@ -14,7 +14,7 @@
         <module>libs/core</module>
         <module>libs/settings</module>
         <module>libs/settings-gui</module>
-        <module>apps/pos-gui</module>
+        <module>apps/pos-app</module>
         <module>libs/pos</module>
         <module>libs/core-gui</module>
         <module>libs/ssh</module>
