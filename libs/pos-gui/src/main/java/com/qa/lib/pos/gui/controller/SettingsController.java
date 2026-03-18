@@ -1,7 +1,7 @@
-package com.qa.app.pos.controller;
+package com.qa.lib.pos.gui.controller;
 
 import com.google.inject.Inject;
-import com.qa.app.pos.viewmodel.SettingsViewModel;
+import com.qa.lib.pos.gui.viewmodel.SettingsViewModel;
 import com.qa.lib.core.gui.controller.base.ScreenController;
 import com.qa.lib.settings.gui.controller.file.FileListController;
 import com.qa.lib.settings.gui.controller.form.FormController;

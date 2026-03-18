@@ -2,8 +2,6 @@ package com.qa.lib.ssh.service.ssh;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.concurrent.CompletableFuture;
-
 public interface ISshService {
     boolean isConnectedTo(String targetHost, int targetPort);
     boolean isConnectedTo(SshConfig config);
@@ -18,4 +16,7 @@ public interface ISshService {
     void uploadFile(String remotePath, String localPath);
 
     void close();
+
+    void addConnectionListener(ISshConnectionListener listener);
+    void removeConnectionListener(ISshConnectionListener listener);
 }

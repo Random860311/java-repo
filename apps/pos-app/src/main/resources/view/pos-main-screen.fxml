@@ -6,9 +6,12 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.qa.app.pos.controller.MainViewController"
+<?import javafx.scene.layout.HBox?>
+<?import com.qa.lib.core.gui.component.led.LedIndicator?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8"
+            fx:controller="com.qa.app.pos.controller.MainController"
             fx:id="rootPane"
             maxHeight="-Infinity"
             maxWidth="-Infinity"
@@ -36,15 +39,69 @@
     </center>
 
     <bottom>
-        <Label text="Label" BorderPane.alignment="CENTER" />
+        <HBox alignment="CENTER_LEFT"
+              spacing="30"
+              maxWidth="Infinity"
+              style="-fx-padding: 6">
+
+            <HBox alignment="CENTER_LEFT"
+                  spacing="10">
+                <HBox alignment="CENTER_LEFT"
+                      spacing="5"
+                      style="-fx-padding: 0 3 0 3">
+                    <Label text="%pos.gui.ssh.target.status"/>
+                    <LedIndicator fx:id="ledTargetStatus"/>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT"
+                      spacing="5"
+                      style="-fx-padding: 0 3 0 3">
+                    <Label text="%pos.gui.ssh.target.host"/>
+                    <Label fx:id="txtTargetHost"/>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT"
+                      spacing="5"
+                      style="-fx-padding: 0 3 0 3">
+                    <Label text="%pos.gui.ssh.target.port"/>
+                    <Label fx:id="txtTargetPort"/>
+                </HBox>
+            </HBox>
+
+            <HBox fx:id="jumpContainer"
+                  alignment="CENTER_LEFT"
+                  spacing="10">
+                <HBox alignment="CENTER_LEFT"
+                      spacing="5"
+                      style="-fx-padding: 0 3 0 3">
+                    <Label text="%pos.gui.ssh.jump.status"/>
+                    <LedIndicator fx:id="ledJumpStatus"/>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT"
+                      spacing="5"
+                      style="-fx-padding: 0 3 0 3">
+                    <Label text="%pos.gui.ssh.jump.host"/>
+                    <Label fx:id="txtJumpHost"/>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT"
+                      spacing="5"
+                      style="-fx-padding: 0 3 0 3">
+                    <Label text="%pos.gui.ssh.jump.port"/>
+                    <Label fx:id="txtJumpPort"/>
+                </HBox>
+            </HBox>
+
+        </HBox>
     </bottom>
 </BorderPane>
 
-<!--<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">-->
-<!--<Tab text="Untitled Tab 1">-->
-<!--    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>-->
-<!--</Tab>-->
-<!--<Tab text="Untitled Tab 2">-->
-<!--    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>-->
-<!--</Tab>-->
-<!--</TabPane>-->
+        <!--<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">-->
+        <!--<Tab text="Untitled Tab 1">-->
+        <!--    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>-->
+        <!--</Tab>-->
+        <!--<Tab text="Untitled Tab 2">-->
+        <!--    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>-->
+        <!--</Tab>-->
+        <!--</TabPane>-->

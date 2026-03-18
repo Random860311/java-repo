@@ -1,20 +1,26 @@
-package com.qa.app.pos.viewmodel;
+package com.qa.lib.pos.gui.viewmodel;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.exception.AppException;
 import com.qa.lib.core.gui.service.dialog.IDialogService;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
+import com.qa.lib.core.gui.viewmodel.explist.SectionViewModel;
 import com.qa.lib.pos.service.manager.IPosService;
 import com.qa.lib.settings.dto.ConfigFileDto;
+import com.qa.lib.settings.gui.viewmodel.file.FileItemViewModel;
 import com.qa.lib.settings.gui.viewmodel.file.FileListViewModel;
 import com.qa.lib.settings.gui.viewmodel.form.FormViewModel;
+import javafx.beans.value.ChangeListener;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public final class SettingsViewModel extends ScreenViewModel {
+    private static final Log log = LogFactory.getLog(SettingsViewModel.class);
     private final Runnable saveCommand = this::onSave;
 
     private final IPosService posService;
@@ -22,6 +28,9 @@ public final class SettingsViewModel extends ScreenViewModel {
     private final FileListViewModel fileListViewModel;
     private final FormViewModel settingsFormViewModel;
     private List<ConfigFileDto> configFiles;
+
+    private final ChangeListener<FileItemViewModel> fileChangeListener;
+    private final ChangeListener<SectionViewModel> sectionChangeListener;
 
     @Inject
     public SettingsViewModel(
@@ -37,18 +46,19 @@ public final class SettingsViewModel extends ScreenViewModel {
         this.fileListViewModel = fileListViewModel;
         this.settingsFormViewModel = settingsFormViewModel;
 
-        this.fileListViewModel.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        fileChangeListener = (observable, oldValue, newValue) -> {
             logService.debug("File Selected: " + newValue.getItemName());
             settingsFormViewModel.clearRows();
-        });
-        this.fileListViewModel.selectedSectionProperty().addListener((observable, oldValue, newValue) -> {
+        };
+
+        sectionChangeListener = (observable, oldValue, newValue) -> {
             logService.debug("Section selected: " + (newValue != null ? newValue.getTitle() : ""));
             if (newValue != null) {
                 settingsFormViewModel.setRows(fileListViewModel.getSelectedItem().getItemName(), newValue.getTitle(), newValue.getData());
             } else {
                 settingsFormViewModel.clearRows();
             }
-        });
+        };
     }
 
     public FileListViewModel getFileListViewModel() {
@@ -61,6 +71,20 @@ public final class SettingsViewModel extends ScreenViewModel {
 
     public Runnable getSaveCommand() {
         return saveCommand;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.fileListViewModel.selectedItemProperty().removeListener(fileChangeListener);
+        this.fileListViewModel.selectedSectionProperty().removeListener(sectionChangeListener);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.fileListViewModel.selectedItemProperty().addListener(fileChangeListener);
+        this.fileListViewModel.selectedSectionProperty().addListener(sectionChangeListener);
     }
 
     @Override
@@ -99,7 +123,9 @@ public final class SettingsViewModel extends ScreenViewModel {
                         ) : CompletableFuture.completedFuture(null)
                 )
                 .whenCompleteAsync((success, throwable) -> {
-                    if (throwable == null) navigationService.back();
+                    if (throwable == null) {
+                        navigationService.back();
+                    }
                 }, uiExecutor)
                 .exceptionally(throwable -> {
                     logService.error(throwable.getMessage(), throwable);

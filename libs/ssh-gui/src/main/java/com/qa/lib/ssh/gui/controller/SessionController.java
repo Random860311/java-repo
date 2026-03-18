@@ -1,11 +1,10 @@
 package com.qa.lib.ssh.gui.controller;
 
 import com.google.inject.Inject;
-import com.qa.lib.core.gui.component.LabeledTextField;
+import com.qa.lib.core.gui.component.textfield.LabeledTextField;
 import com.qa.lib.core.gui.controller.base.ComponentController;
 import com.qa.lib.ssh.gui.viewmodel.SessionViewModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 public final class SessionController extends ComponentController<SessionViewModel> {
     @FXML

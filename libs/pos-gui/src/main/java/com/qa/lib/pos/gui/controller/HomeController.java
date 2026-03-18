@@ -1,7 +1,7 @@
-package com.qa.app.pos.controller;
+package com.qa.lib.pos.gui.controller;
 
 import com.google.inject.Inject;
-import com.qa.app.pos.viewmodel.HomeViewModel;
+import com.qa.lib.pos.gui.viewmodel.HomeViewModel;
 import com.qa.lib.core.gui.controller.base.ScreenController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -1,4 +1,4 @@
-package com.qa.lib.core.gui.component;
+package com.qa.lib.core.gui.component.textfield;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.AppContext;

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import com.qa.lib.core.gui.component.LabeledTextField?>
+<?import com.qa.lib.core.gui.component.textfield.LabeledTextField?>
 <VBox xmlns:fx="http://javafx.com/fxml"
       xmlns="http://javafx.com/javafx"
       fx:controller="com.qa.lib.ssh.gui.controller.SessionController"

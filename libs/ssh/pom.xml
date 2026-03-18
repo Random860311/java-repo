@@ -20,12 +20,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.qa</groupId>
-            <artifactId>core-imp</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
         </dependency>

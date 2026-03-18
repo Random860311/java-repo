@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root type="StackPane"
+         xmlns:fx="http://javafx.com/fxml/1"
+         xmlns="http://javafx.com/javafx/8"
+         minWidth="16"
+         minHeight="16"
+         prefWidth="16"
+         prefHeight="16"
+         maxWidth="16"
+         maxHeight="16">
+
+    <Circle fx:id="ledCircle"
+            radius="6"
+            strokeWidth="1.5"/>
+
+</fx:root>

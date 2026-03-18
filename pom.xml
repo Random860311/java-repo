@@ -19,6 +19,7 @@
         <module>libs/core-gui</module>
         <module>libs/ssh</module>
         <module>libs/ssh-gui</module>
+        <module>libs/pos-gui</module>
     </modules>
 
     <properties>

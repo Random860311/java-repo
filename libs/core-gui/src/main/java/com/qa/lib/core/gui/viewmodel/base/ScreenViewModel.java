@@ -2,6 +2,7 @@ package com.qa.lib.core.gui.viewmodel.base;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.exception.AppException;
+import com.qa.lib.core.gui.ILifeCycle;
 import com.qa.lib.core.gui.controller.IParameterReceiver;
 import com.qa.lib.core.gui.service.dialog.IDialogService;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
@@ -11,7 +12,9 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public abstract class ScreenViewModel extends BaseViewModel implements IParameterReceiver {
+public abstract class ScreenViewModel extends BaseViewModel implements IParameterReceiver, ILifeCycle {
+    private final Runnable closeCommand = this::onClose;
+
     protected final INavigationService navigationService;
     protected final IDialogService dialogService;
 
@@ -29,7 +32,20 @@ public abstract class ScreenViewModel extends BaseViewModel implements IParamete
         navigationParameter = parameter;
     }
 
-    public void onInitialize() {
+    public void onInitialize() { }
+
+    @Override
+    public void onResume() { }
+
+    @Override
+    public void onStop() { }
+
+    public Runnable getCloseCommand() {
+        return closeCommand;
+    }
+
+    protected void onClose() {
+        CompletableFuture.runAsync(navigationService::back, uiExecutor);
     }
 
     protected <T> CompletableFuture<T> executeTask(
@@ -50,7 +66,7 @@ public abstract class ScreenViewModel extends BaseViewModel implements IParamete
                         if (successMessage == null) {
                             return CompletableFuture.completedFuture(executionResult.result);
                         }
-                        dialogService.showInfoAsync(successMessage).thenApply(unused -> executionResult.result);
+                        dialogService.showInfoAsync(successMessage).thenApply(unused -> future.complete(executionResult.result));
 
                     } else {
                         String message = executionResult.throwable instanceof AppException ? ((AppException) executionResult.throwable).getUserMessage() : failMessage;
@@ -68,4 +84,6 @@ public abstract class ScreenViewModel extends BaseViewModel implements IParamete
             return null;
         }, loadingMessage, successMessage, failMessage);
     }
+
+
 }

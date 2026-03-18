@@ -10,8 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>ssh-gui</artifactId>
-
+    <artifactId>pos-gui</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.qa</groupId>
@@ -27,18 +26,37 @@
 
         <dependency>
             <groupId>com.qa</groupId>
+            <artifactId>settings</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qa</groupId>
+            <artifactId>settings-gui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qa</groupId>
             <artifactId>ssh</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qa</groupId>
+            <artifactId>ssh-gui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qa</groupId>
+            <artifactId>pos</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
         </dependency>
     </dependencies>
 

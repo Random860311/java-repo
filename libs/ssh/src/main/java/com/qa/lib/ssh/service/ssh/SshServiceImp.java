@@ -5,7 +5,6 @@ import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-import com.qa.lib.core.qualifiers.BackgroundThread;
 import com.qa.lib.core.service.log.ILogService;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -14,13 +13,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Properties;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
+import java.util.*;
 
-public final class SSHServiceImp implements ISshService {
+public final class SshServiceImp implements ISshService {
     private final ILogService logService;
-    private final Executor backgroundExecutor;
+    private final Set<ISshConnectionListener> listeners = Collections.synchronizedSet(Collections.newSetFromMap(new WeakHashMap<>()));
 
     private final Object sessionLock = new Object();
 
@@ -28,9 +25,8 @@ public final class SSHServiceImp implements ISshService {
     private Session targetSession;
 
     @Inject
-    public SSHServiceImp(ILogService logService, @BackgroundThread Executor backgroundExecutor) {
+    public SshServiceImp(ILogService logService) {
         this.logService = logService;
-        this.backgroundExecutor = backgroundExecutor;
     }
 
     public void init(SshConfig config) {
@@ -45,8 +41,11 @@ public final class SSHServiceImp implements ISshService {
                         config.getTargetUsername(),
                         config.getTargetPassword()
                 );
-                this.jumpSession = null;
-                this.targetSession = newTargetSession;
+                jumpSession = null;
+                targetSession = newTargetSession;
+
+                SshSessionStatus targetSessionStatus = new SshSessionStatus(true, targetSession.getHost(), targetSession.getPort());
+                notifyConnectionStatusChanged(new SshConnectionStatus(targetSessionStatus));
             } catch (Exception ex) {
                 close();
                 throw new RuntimeException("Failed to initialize SSH session.", ex);
@@ -86,8 +85,12 @@ public final class SSHServiceImp implements ISshService {
                             config.getTargetPassword()
                     );
 
-                    this.jumpSession = newJumpSession;
-                    this.targetSession = newTargetSession;
+                    jumpSession = newJumpSession;
+                    targetSession = newTargetSession;
+
+                    SshSessionStatus targetSessionStatus = new SshSessionStatus(true, targetSession.getHost(), targetSession.getPort());
+                    SshSessionStatus jumpSessionStatus = new SshSessionStatus(true, jumpSession.getHost(), jumpSession.getPort());
+                    notifyConnectionStatusChanged(new SshConnectionStatus(targetSessionStatus, jumpSessionStatus));
 
                 } catch (Exception ex) {
                     close();
@@ -348,17 +351,48 @@ public final class SSHServiceImp implements ISshService {
 
     public void close() {
         synchronized (sessionLock) {
+            SshSessionStatus targetSessionStatus = null;
             if (targetSession != null) {
                 targetSession.disconnect();
-                targetSession = null;
+                targetSessionStatus = new SshSessionStatus(false, targetSession.getHost(), targetSession.getPort());
             }
-
+            SshSessionStatus jumpSessionStatus = null;
             if (jumpSession != null) {
                 jumpSession.disconnect();
-                jumpSession = null;
+                jumpSessionStatus = new SshSessionStatus(false, jumpSession.getHost(), jumpSession.getPort());
             }
+            notifyConnectionStatusChanged(new SshConnectionStatus(targetSessionStatus, jumpSessionStatus));
 
-//            forwardedLocalPort = 0;
+            targetSession = null;
+            jumpSession = null;
+        }
+    }
+
+    @Override
+    public void addConnectionListener(ISshConnectionListener listener) {
+        if (listener == null) {
+            return;
+        }
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeConnectionListener(ISshConnectionListener listener) {
+        if (listener == null) {
+            return;
+        }
+        listeners.remove(listener);
+    }
+
+    private void notifyConnectionStatusChanged(SshConnectionStatus status) {
+        List<ISshConnectionListener> snapshot;
+
+        synchronized (listeners) {
+            snapshot = new ArrayList<>(listeners);
+        }
+
+        for (ISshConnectionListener listener : snapshot) {
+            listener.onConnectionChange(status);
         }
     }
 }

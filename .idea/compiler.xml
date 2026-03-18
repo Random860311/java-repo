@@ -13,6 +13,7 @@
         <module name="pos-app" />
         <module name="core-gui" />
         <module name="ssh" />
+        <module name="pos-gui" />
         <module name="ssh-gui" />
       </profile>
     </annotationProcessing>

@@ -9,22 +9,27 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Set;
 
 public class ViewFactoryImp implements IViewFactory {
     private final Injector injector;
-    private final IViewResolver viewResolver;
+    private final Set<IViewResolver> viewResolvers;
     private final II18nService i18nService;
 
     @Inject
-    public ViewFactoryImp(Injector injector, IViewResolver viewResolver, II18nService i18nService) {
+    public ViewFactoryImp(Injector injector, Set<IViewResolver> viewResolvers, II18nService i18nService) {
         this.injector = injector;
-        this.viewResolver = viewResolver;
+        this.viewResolvers = viewResolvers;
         this.i18nService = i18nService;
     }
 
     @Override
-    public Parent load(int viewId, Object parameter) {
-        String path = viewResolver.resolveView(viewId);
+    public LoadedView load(int viewId, Object parameter) {
+        String path = null;
+        for (IViewResolver resolver : viewResolvers) {
+            if ((path = resolver.resolveView(viewId)) != null) break;
+        }
+
         if (path == null) {
             throw new IllegalArgumentException("No FXML mapped for " + viewId);
         }
@@ -49,7 +54,7 @@ public class ViewFactoryImp implements IViewFactory {
                 ((IParameterReceiver) controller).setNavigationParameter(parameter);
             }
 
-            return root;
+            return new LoadedView(root, controller);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load FXML: " + path, e);
         }

@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.qa</groupId>
-            <artifactId>core-imp</artifactId>
+            <artifactId>core</artifactId>
             <version>${project.version}</version>
         </dependency>
 

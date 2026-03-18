@@ -24,12 +24,6 @@
 
         <dependency>
             <groupId>com.qa</groupId>
-            <artifactId>core-imp</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.qa</groupId>
             <artifactId>settings</artifactId>
             <version>${project.version}</version>
         </dependency>

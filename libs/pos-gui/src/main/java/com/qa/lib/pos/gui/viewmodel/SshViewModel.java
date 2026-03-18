@@ -1,4 +1,4 @@
-package com.qa.app.pos.viewmodel;
+package com.qa.lib.pos.gui.viewmodel;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.gui.service.dialog.IDialogService;
