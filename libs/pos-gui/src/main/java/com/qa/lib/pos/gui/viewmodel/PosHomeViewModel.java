@@ -6,12 +6,12 @@ import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
 import com.qa.lib.pos.gui.service.navigation.PosRoutes;
 
-public final class HomeViewModel extends ScreenViewModel {
+public final class PosHomeViewModel extends ScreenViewModel {
     private final Runnable showSettingsCommand = this::onShowSettings;
     private final Runnable showSshCommand = this::onShowSsh;
 
     @Inject
-    public HomeViewModel(INavigationService navigationService, IDialogService dialogService) {
+    public PosHomeViewModel(INavigationService navigationService, IDialogService dialogService) {
         super(navigationService, dialogService);
     }
 

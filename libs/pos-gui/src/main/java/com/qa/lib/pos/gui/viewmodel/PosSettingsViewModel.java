@@ -19,8 +19,8 @@ import org.apache.commons.logging.LogFactory;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public final class SettingsViewModel extends ScreenViewModel {
-    private static final Log log = LogFactory.getLog(SettingsViewModel.class);
+public final class PosSettingsViewModel extends ScreenViewModel {
+    private static final Log log = LogFactory.getLog(PosSettingsViewModel.class);
     private final Runnable saveCommand = this::onSave;
 
     private final IPosService posService;
@@ -33,7 +33,7 @@ public final class SettingsViewModel extends ScreenViewModel {
     private final ChangeListener<SectionViewModel> sectionChangeListener;
 
     @Inject
-    public SettingsViewModel(
+    public PosSettingsViewModel(
             FileListViewModel fileListViewModel,
             FormViewModel settingsFormViewModel,
             IPosService posService,

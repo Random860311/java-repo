@@ -8,7 +8,7 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
-            fx:controller="com.qa.lib.pos.gui.controller.SshController"
+            fx:controller="com.qa.lib.pos.gui.controller.PosSshController"
             style="-fx-padding:10 10 0 10;">
     <center>
         <fx:include source="/view/ssh-target-jump-view.fxml" fx:id="targetJump"/>

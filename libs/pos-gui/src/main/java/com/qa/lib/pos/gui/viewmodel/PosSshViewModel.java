@@ -8,14 +8,14 @@ import com.qa.lib.ssh.gui.viewmodel.TargetJumpViewModel;
 import com.qa.lib.ssh.service.ssh.ISshService;
 import com.qa.lib.ssh.service.ssh.SshJumpConfig;
 
-public final class SshViewModel extends ScreenViewModel {
+public final class PosSshViewModel extends ScreenViewModel {
     private final Runnable confirmCommand = this::onConfirm;
 
     private final ISshService sshService;
     private final TargetJumpViewModel sshViewModel;
 
     @Inject
-    public SshViewModel(INavigationService navigationService, TargetJumpViewModel sshViewModel, IDialogService dialogService, ISshService sshService) {
+    public PosSshViewModel(INavigationService navigationService, TargetJumpViewModel sshViewModel, IDialogService dialogService, ISshService sshService) {
         super(navigationService, dialogService);
         this.sshViewModel = sshViewModel;
         this.sshService = sshService;

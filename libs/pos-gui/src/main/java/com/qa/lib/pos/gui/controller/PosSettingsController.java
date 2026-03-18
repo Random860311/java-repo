@@ -1,14 +1,14 @@
 package com.qa.lib.pos.gui.controller;
 
 import com.google.inject.Inject;
-import com.qa.lib.pos.gui.viewmodel.SettingsViewModel;
+import com.qa.lib.pos.gui.viewmodel.PosSettingsViewModel;
 import com.qa.lib.core.gui.controller.base.ScreenController;
 import com.qa.lib.settings.gui.controller.file.FileListController;
 import com.qa.lib.settings.gui.controller.form.FormController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public final class SettingsController extends ScreenController<SettingsViewModel> {
+public final class PosSettingsController extends ScreenController<PosSettingsViewModel> {
     @FXML
     private FileListController leftFileListController;
     @FXML
@@ -17,7 +17,7 @@ public final class SettingsController extends ScreenController<SettingsViewModel
     private Button btnSave;
 
     @Inject
-    public SettingsController(SettingsViewModel viewModel){
+    public PosSettingsController(PosSettingsViewModel viewModel){
         super(viewModel);
     }
 
