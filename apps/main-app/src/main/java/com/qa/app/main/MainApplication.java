@@ -1,8 +1,8 @@
-package com.qa.app.pos;
+package com.qa.app.main;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.qa.app.pos.di.ApplicationModule;
+import com.qa.app.main.di.ApplicationModule;
 import com.qa.lib.core.AppContext;
 import com.qa.lib.core.service.i18n.II18nService;
 import com.qa.lib.ssh.service.ssh.ISshService;
@@ -11,7 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class PosApplication extends Application {
+public class MainApplication extends Application {
     private static Injector injector;
 
     public static Injector getInjector() {
@@ -34,7 +34,7 @@ public class PosApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/view/pos-main-screen.fxml"),
+                getClass().getResource("/view/main-screen.fxml"),
                 i18nService.getBundle()
         );
         System.out.println(System.getProperty("user.dir"));
@@ -85,5 +85,6 @@ public class PosApplication extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
     }
 }

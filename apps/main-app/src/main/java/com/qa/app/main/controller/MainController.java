@@ -1,8 +1,8 @@
-package com.qa.app.pos.controller;
+package com.qa.app.main.controller;
 
 import com.google.inject.Inject;
-import com.qa.app.pos.service.navigation.IAppNavigationService;
-import com.qa.app.pos.viewmodel.MainViewModel;
+import com.qa.app.main.service.navigation.IAppNavigationService;
+import com.qa.app.main.viewmodel.MainViewModel;
 import com.qa.lib.core.gui.component.led.LedIndicator;
 import com.qa.lib.core.gui.controller.base.ScreenController;
 import javafx.fxml.FXML;

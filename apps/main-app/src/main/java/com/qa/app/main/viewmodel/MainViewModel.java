@@ -1,4 +1,4 @@
-package com.qa.app.pos.viewmodel;
+package com.qa.app.main.viewmodel;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.gui.component.led.ELedStatus;

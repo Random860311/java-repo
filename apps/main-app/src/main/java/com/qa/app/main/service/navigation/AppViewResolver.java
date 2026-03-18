@@ -1,7 +1,6 @@
-package com.qa.app.pos.service.navigation;
+package com.qa.app.main.service.navigation;
 
 import com.qa.lib.core.gui.service.navigation.IViewResolver;
-import com.qa.lib.pos.gui.service.navigation.PosRoutes;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +11,7 @@ public final class AppViewResolver implements IViewResolver {
 
     static {
         Map<Integer, String> temp = new HashMap<>();
-        temp.put(AppRoutes.MAIN, "/view/pos-main-screen.fxml");
+        temp.put(AppRoutes.MAIN, "/view/main-screen.fxml");
 
         viewsMap = Collections.unmodifiableMap(temp);
     }

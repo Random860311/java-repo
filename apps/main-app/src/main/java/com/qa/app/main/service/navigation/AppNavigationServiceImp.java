@@ -1,4 +1,4 @@
-package com.qa.app.pos.service.navigation;
+package com.qa.app.main.service.navigation;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.gui.service.navigation.IViewFactory;

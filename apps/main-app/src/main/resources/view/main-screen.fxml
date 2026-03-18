@@ -11,7 +11,7 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/8"
-            fx:controller="com.qa.app.pos.controller.MainController"
+            fx:controller="com.qa.app.main.controller.MainController"
             fx:id="rootPane"
             maxHeight="-Infinity"
             maxWidth="-Infinity"

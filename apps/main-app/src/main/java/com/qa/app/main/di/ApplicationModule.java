@@ -1,16 +1,12 @@
-package com.qa.app.pos.di;
+package com.qa.app.main.di;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
-import com.qa.lib.pos.gui.controller.HomeController;
-import com.qa.app.pos.controller.MainController;
-import com.qa.lib.pos.gui.controller.SettingsController;
-import com.qa.app.pos.service.navigation.AppNavigationServiceImp;
-import com.qa.app.pos.service.navigation.IAppNavigationService;
+import com.qa.app.main.controller.MainController;
+import com.qa.app.main.service.navigation.AppNavigationServiceImp;
+import com.qa.app.main.service.navigation.IAppNavigationService;
 import com.qa.lib.pos.gui.di.PosGuiModule;
-import com.qa.lib.pos.gui.viewmodel.HomeViewModel;
-import com.qa.app.pos.viewmodel.MainViewModel;
-import com.qa.lib.pos.gui.viewmodel.SettingsViewModel;
+import com.qa.app.main.viewmodel.MainViewModel;
 import com.qa.lib.core.di.CoreModule;
 import com.qa.lib.core.gui.di.CoreGuiModule;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
