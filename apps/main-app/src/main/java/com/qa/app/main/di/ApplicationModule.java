@@ -2,9 +2,11 @@ package com.qa.app.main.di;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
+import com.qa.app.main.controller.HomeController;
 import com.qa.app.main.controller.MainController;
 import com.qa.app.main.service.navigation.AppNavigationServiceImp;
 import com.qa.app.main.service.navigation.IAppNavigationService;
+import com.qa.app.main.viewmodel.HomeViewModel;
 import com.qa.lib.pos.gui.di.PosGuiModule;
 import com.qa.app.main.viewmodel.MainViewModel;
 import com.qa.lib.core.di.CoreModule;
@@ -48,12 +50,12 @@ public final class ApplicationModule extends AbstractModule {
 
     private void registerViewModels() {
         bind(MainViewModel.class);
-
+        bind(HomeViewModel.class);
     }
 
     private void registerControllers() {
         bind(MainController.class);
-
+        bind(HomeController.class);
     }
 
     private void registerUtils() {

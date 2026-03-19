@@ -1,11 +1,11 @@
 package com.qa.app.main.viewmodel;
 
 import com.google.inject.Inject;
+import com.qa.app.main.service.navigation.AppRoutes;
 import com.qa.lib.core.gui.component.led.ELedStatus;
 import com.qa.lib.core.gui.service.dialog.IDialogService;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
-import com.qa.lib.pos.gui.service.navigation.PosRoutes;
 import com.qa.lib.ssh.service.ssh.ISshConnectionListener;
 import com.qa.lib.ssh.service.ssh.ISshService;
 import com.qa.lib.ssh.service.ssh.SshConnectionStatus;
@@ -139,7 +139,7 @@ public final class MainViewModel extends ScreenViewModel implements ISshConnecti
     @Override
     public void onInitialize() {
         super.onInitialize();
-        navigationService.navigateTo(PosRoutes.HOME);
+        navigationService.navigateTo(AppRoutes.HOME);
     }
 
 

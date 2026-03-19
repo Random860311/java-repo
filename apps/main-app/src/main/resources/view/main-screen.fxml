@@ -49,21 +49,21 @@
                 <HBox alignment="CENTER_LEFT"
                       spacing="5"
                       style="-fx-padding: 0 3 0 3">
-                    <Label text="%pos.gui.ssh.target.status"/>
+                    <Label text="%main.app.ssh.target.status"/>
                     <LedIndicator fx:id="ledTargetStatus"/>
                 </HBox>
 
                 <HBox alignment="CENTER_LEFT"
                       spacing="5"
                       style="-fx-padding: 0 3 0 3">
-                    <Label text="%pos.gui.ssh.target.host"/>
+                    <Label text="%main.app.ssh.target.host"/>
                     <Label fx:id="txtTargetHost"/>
                 </HBox>
 
                 <HBox alignment="CENTER_LEFT"
                       spacing="5"
                       style="-fx-padding: 0 3 0 3">
-                    <Label text="%pos.gui.ssh.target.port"/>
+                    <Label text="%main.app.ssh.target.port"/>
                     <Label fx:id="txtTargetPort"/>
                 </HBox>
             </HBox>
@@ -74,21 +74,21 @@
                 <HBox alignment="CENTER_LEFT"
                       spacing="5"
                       style="-fx-padding: 0 3 0 3">
-                    <Label text="%pos.gui.ssh.jump.status"/>
+                    <Label text="%main.app.ssh.jump.status"/>
                     <LedIndicator fx:id="ledJumpStatus"/>
                 </HBox>
 
                 <HBox alignment="CENTER_LEFT"
                       spacing="5"
                       style="-fx-padding: 0 3 0 3">
-                    <Label text="%pos.gui.ssh.jump.host"/>
+                    <Label text="%main.app.ssh.jump.host"/>
                     <Label fx:id="txtJumpHost"/>
                 </HBox>
 
                 <HBox alignment="CENTER_LEFT"
                       spacing="5"
                       style="-fx-padding: 0 3 0 3">
-                    <Label text="%pos.gui.ssh.jump.port"/>
+                    <Label text="%main.app.ssh.jump.port"/>
                     <Label fx:id="txtJumpPort"/>
                 </HBox>
             </HBox>

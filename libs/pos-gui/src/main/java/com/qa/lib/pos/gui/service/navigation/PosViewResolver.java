@@ -11,10 +11,8 @@ public final class PosViewResolver implements IViewResolver {
 
     static {
         Map<Integer, String> temp = new HashMap<>();
-        temp.put(10, "/view/pos-main-screen.fxml");
         temp.put(PosRoutes.HOME, "/view/pos-home-screen.fxml");
         temp.put(PosRoutes.SETTINGS, "/view/pos-settings-screen.fxml");
-        temp.put(PosRoutes.SSH, "/view/pos-ssh-screen.fxml");
 
         viewsMap = Collections.unmodifiableMap(temp);
     }

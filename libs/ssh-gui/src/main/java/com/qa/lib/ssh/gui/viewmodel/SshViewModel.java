@@ -1,21 +1,20 @@
-package com.qa.lib.pos.gui.viewmodel;
+package com.qa.lib.ssh.gui.viewmodel;
 
 import com.google.inject.Inject;
 import com.qa.lib.core.gui.service.dialog.IDialogService;
 import com.qa.lib.core.gui.service.navigation.INavigationService;
 import com.qa.lib.core.gui.viewmodel.base.ScreenViewModel;
-import com.qa.lib.ssh.gui.viewmodel.TargetJumpViewModel;
 import com.qa.lib.ssh.service.ssh.ISshService;
 import com.qa.lib.ssh.service.ssh.SshJumpConfig;
 
-public final class PosSshViewModel extends ScreenViewModel {
+public final class SshViewModel extends ScreenViewModel {
     private final Runnable confirmCommand = this::onConfirm;
 
     private final ISshService sshService;
     private final TargetJumpViewModel sshViewModel;
 
     @Inject
-    public PosSshViewModel(INavigationService navigationService, TargetJumpViewModel sshViewModel, IDialogService dialogService, ISshService sshService) {
+    public SshViewModel(INavigationService navigationService, TargetJumpViewModel sshViewModel, IDialogService dialogService, ISshService sshService) {
         super(navigationService, dialogService);
         this.sshViewModel = sshViewModel;
         this.sshService = sshService;
@@ -35,9 +34,9 @@ public final class PosSshViewModel extends ScreenViewModel {
                     SshJumpConfig config = sshViewModel.onConfirm();
                     sshService.init(config);
                 },
-                i18nService.getString("pos.gui.ssh.connection.init"),
-                i18nService.getString("pos.gui.ssh.connection.ok"),
-                i18nService.getString("pos.gui.ssh.connection.fail")
+                i18nService.getString("ssh.gui.connection.init"),
+                i18nService.getString("ssh.gui.connection.ok"),
+                i18nService.getString("ssh.gui.connection.fail")
         ).whenCompleteAsync((success, exception) -> {
             if (exception == null) navigationService.back();
         }, uiExecutor).exceptionally(throwable -> {

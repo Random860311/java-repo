@@ -1,4 +1,4 @@
-package com.qa.app.main.service.navigation;
+package com.qa.lib.ssh.gui.service.navigation;
 
 import com.qa.lib.core.gui.service.navigation.IViewResolver;
 
@@ -6,13 +6,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class AppViewResolver implements IViewResolver {
+public final class SshViewResolver implements IViewResolver {
     private static final Map<Integer, String> viewsMap;
 
     static {
         Map<Integer, String> temp = new HashMap<>();
-        temp.put(AppRoutes.MAIN, "/view/main-screen.fxml");
-        temp.put(AppRoutes.HOME, "/view/home-screen.fxml");
+        temp.put(SshRoutes.SSH, "/view/ssh-screen.fxml");
 
         viewsMap = Collections.unmodifiableMap(temp);
     }
